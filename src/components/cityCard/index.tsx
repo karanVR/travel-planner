@@ -40,8 +40,8 @@ const CityCard = ({
         </div>
       </div>
       {(country || flag) && (
-        <div className="flex space-between">
-          , {country} {flag}
+        <div className="flex space-between font-bold">
+          {country} {flag}
         </div>
       )}
       <div className="flex items-center gap-2 w-[100%] space-evenly text-sm">

@@ -10,7 +10,7 @@ import { themeContext } from '@/context';
 const SearchPlace = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const {appTheme} = useContext(themeContext)
+  const { appTheme } = useContext(themeContext);
 
   // Debounce the user input
   useEffect(() => {
@@ -24,7 +24,11 @@ const SearchPlace = () => {
   }, [searchTerm]);
 
   // Fetch place details with React Query
-  const { data: places, isLoading, isError } = useQuery({
+  const {
+    data: places,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ['placeDetails', debouncedSearch],
     queryFn: () => fetchPlaceDetails(debouncedSearch),
     enabled: !!debouncedSearch,
@@ -39,22 +43,40 @@ const SearchPlace = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className={cn("w-full p-2 border rounded", appTheme==='light'? 'text-black':'text-black')}
+          className={cn(
+            'w-full p-2 border rounded',
+            appTheme === 'light' ? 'text-black' : 'text-black',
+          )}
           placeholder="Enter a place or location..."
         />
       </div>
 
       {isLoading && <p>Loading place details...</p>}
-      {isError && <p>Failed to fetch place details. Please check the search term and try again.</p>}
+      {isError && (
+        <p>
+          Failed to fetch place details. Please check the search term and try
+          again.
+        </p>
+      )}
       {places && places.results && places.results.length > 0 ? (
-        places.results.map((place:any) => (
+        places.results.map((place: any) => (
           <div key={place.fsq_id} className="border rounded p-4 mb-4">
             <h2 className="text-2xl font-bold">{place.name}</h2>
-            <p><strong>Category:</strong> {place.categories?.[0]?.name || 'N/A'}</p>
-            <p><strong>Address:</strong> {place.location?.address || 'N/A'}</p>
-            <p><strong>Distance:</strong> {place.distance} meters</p>
-            <p><strong>Latitude:</strong> {place.location?.lat || 'N/A'}</p>
-            <p><strong>Longitude:</strong> {place.location?.lng || 'N/A'}</p>
+            <p>
+              <strong>Category:</strong> {place.categories?.[0]?.name || 'N/A'}
+            </p>
+            <p>
+              <strong>Address:</strong> {place.location?.address || 'N/A'}
+            </p>
+            <p>
+              <strong>Distance:</strong> {place.distance} meters
+            </p>
+            <p>
+              <strong>Latitude:</strong> {place.location?.lat || 'N/A'}
+            </p>
+            <p>
+              <strong>Longitude:</strong> {place.location?.lng || 'N/A'}
+            </p>
           </div>
         ))
       ) : (

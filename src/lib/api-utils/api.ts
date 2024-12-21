@@ -19,9 +19,7 @@ export const fetchPlaces = async (latitude: number, longitude: number) => {
   return response.json();
 };
 
-
 export const fetchCityAutocomplete = async (query: string) => {
-
   const API_KEY =
     process.env.NEXT_PUBLIC_FOURSQUARE_API_KEY ??
     'fsq3FftqatgNpRpCnfX69O8eLGWWYJhrf7gHKH7mQBiJ03c';
@@ -49,6 +47,3 @@ export const fetchPlaceDetails = async (query: string) => {
   }
   return response.json();
 };
-
-
-

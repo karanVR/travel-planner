@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import useWindowDimensions from '../../hooks/useWindowDimensions.hook';
 import { CITIES } from '@/lib/constants';
@@ -28,6 +28,17 @@ const Dashboad = () => {
     },
     staleTime: 1000 * 60 * 10,
   });
+
+  const fetchCountries = async () => {
+    const res = await fetch(
+      `https://restcountries.com/v3.1/independent?status=true`,
+    );
+    const data = await res.json();
+    console.log(data, 'countriesData');
+  };
+  useEffect(() => {
+    fetchCountries();
+  }, []);
 
   if (isLoading) return <p>Loading...</p>;
   if (error instanceof Error) return <p>Error: {error.message}</p>;
@@ -94,8 +105,8 @@ const Dashboad = () => {
                 placesToVisit={places}
                 weather_description={city.weather.weather[0].description}
                 // cover={}
-                // flag={}
-                // country={}
+                flag={CITIES[index].flag}
+                country={CITIES[index].country}
               />
             );
           })}
