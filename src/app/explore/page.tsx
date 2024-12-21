@@ -1,21 +1,3 @@
-'use client'
-// import React from 'react';
-
-// const Explore = () => {
-//   return (
-//     <div>
-//       <div className="flex gap-4">carousel</div>
-//       <p>Explore the world</p>
-//       <div className="flex space-between">
-//         {/* <Filters /> */}
-//         {/* see more > icon */}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Explore;
-
 'use client';
 
 import React, { useState, useEffect, useContext } from 'react';
