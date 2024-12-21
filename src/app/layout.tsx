@@ -85,7 +85,7 @@ export default function RootLayout({
                       <div
                         className={cn(
                           'relative w-full',
-                          windowWidth! < 740 ? '' : 'md:pl-72', 
+                          windowWidth! < 740 ? '' : 'md:pl-72',
                         )}
                       >
                         <Navbar />

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import useWindowDimensions from '../../hooks/useWindowDimensions.hook';
 import { CITIES } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
