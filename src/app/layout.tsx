@@ -11,6 +11,7 @@ import {
   SignedOut,
   UserButton,
 } from '@clerk/nextjs';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 import { themeContext } from '../../lib/context';
 import ThemeToggle from '../components/themeToggle';
@@ -20,6 +21,9 @@ import TpLogo from '../components/tpLogo';
 import Navbar from '../components/navbar';
 import useWindowDimensions from '../hooks/useWindowDimensions.hook';
 import Sidebar from '../components/sidebar';
+import { cn } from '@/lib/utils';
+
+const queryClient = new QueryClient();
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -52,44 +56,49 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <themeContext.Provider value={{ appTheme, setAppTheme }}>
-        <html lang="en">
-          <body className={` ${poppins.variable} antialiased`}>
-            <div
-              className={clsx(
-                'flex flex-col w-[100%] flex-grow-1 h-[100vh] justify-start px-6 py-4',
-                { 'bg-black text-white': appTheme === 'dark' },
-              )}
-            >
-              <header className="flex justify-between">
-                <text className="font-bold text-2xl">
-                  <TpLogo />
-                </text>
-                <HeaderRightThemeToggle />
-              </header>
-              <main>
-                <SignedOut>
-                  <div className="flex w-[100dvw] h-[100dvh] items-center justify-center">
-                    <SignIn routing="hash" />
-                  </div>
-                </SignedOut>
-                <SignedIn>
-                  <div className="h-full relative">
-                    <div className="hidden h-full md:flex md: flex-col md:w-72 md:fixed md: inset-y-0 z=[80] bg-gray-900">
-                      <div>
+        <QueryClientProvider client={queryClient}>
+          <html lang="en">
+            <body className={` ${poppins.variable} antialiased`}>
+              <div
+                className={clsx(
+                  'flex flex-col w-[100%] flex-grow-1 h-[100%] justify-start py-4',
+                  { 'bg-black text-white': appTheme === 'dark' },
+                )}
+              >
+                <header className="flex justify-between">
+                  <text className="font-bold text-2xl pl-6">
+                    <TpLogo />
+                  </text>
+                  <HeaderRightThemeToggle />
+                </header>
+                <main>
+                  <SignedOut>
+                    <div className="flex w-[100dvw] h-[100dvh] items-center justify-center">
+                      <SignIn routing="hash" />
+                    </div>
+                  </SignedOut>
+                  <SignedIn>
+                    <div className="h-full relative">
+                      <div className="hidden md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 z-[80] bg-gray-900">
                         <Sidebar />
                       </div>
+                      <div
+                        className={cn(
+                          'relative w-full',
+                          windowWidth! < 740 ? '' : 'md:pl-72', 
+                        )}
+                      >
+                        <Navbar />
+                        {children}
+                      </div>
                     </div>
-                   {windowWidth!<740 && <main className="md:pl-72">
-                      <Navbar /> 
-                    </main>}
-                    {children}
-                  </div>
-                </SignedIn>
-                {/* <SignedIn>{windowWidth!<740?<Navbar />: <Sidebar />}{children}</SignedIn> */}
-              </main>
-            </div>
-          </body>
-        </html>
+                  </SignedIn>
+                  {/* <SignedIn>{windowWidth!<740?<Navbar />: <Sidebar />}{children}</SignedIn> */}
+                </main>
+              </div>
+            </body>
+          </html>
+        </QueryClientProvider>
       </themeContext.Provider>
     </ClerkProvider>
   );

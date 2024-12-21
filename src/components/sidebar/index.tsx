@@ -10,6 +10,10 @@ import { VscLayoutMenubar } from 'react-icons/vsc';
 import { cn } from '../../../lib/utils';
 import logo from '../../assets/images/logo.png';
 import { themeContext } from '../../../lib/context';
+import { TbUserHexagon } from "react-icons/tb";
+import { TbWallet } from "react-icons/tb";
+import { FaWpexplorer } from "react-icons/fa6";
+
 
 const montserrat = Montserrat({
   weight: '600',
@@ -24,35 +28,33 @@ const routes = [
     color: 'text-sky-500',
   },
   {
-    label: 'Second section',
-    icon: VscLayoutMenubar,
-    href: '/conversation',
+    label: 'Explore',
+    icon: FaWpexplorer,
+    href: '/explore',
     color: 'text-violet-500',
   },
   {
     label: 'Profile',
-    icon: VscLayoutMenubar,
-    href: '/conversation',
+    icon: TbUserHexagon,
+    href: '/profile',
     color: 'text-red-500',
+  },
+  {
+    label: 'Wallet',
+    icon: TbWallet,
+    href: '/wallet',
+    color: 'text-yellow-500',
   },
 ];
 
 const Sidebar = () => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => setIsMounted(true));
-
-  if (!isMounted) {
-    return null;
-  }
-
   const pathname = usePathname();
   const { appTheme } = useContext(themeContext);
   return (
     <div
       className={cn(
         'space-y-4 flex-col items-center  h-full',
-        appTheme === 'light' ? 'bg-black text-white' : 'bg-white text-black',
+        appTheme === 'light' ? 'bg-black text-white' : 'bg-white/10 text-zinc',
       )}
     >
       <div className="px-3 py-2 flex-1">

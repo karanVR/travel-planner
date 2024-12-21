@@ -6,7 +6,7 @@ import { UserButton } from '@clerk/nextjs';
 
 const HeaderRightThemeToggle = () => {
   return (
-    <div className="flex space-between items-center gap-8">
+    <div className="flex space-between items-center gap-8 px-6">
       <ThemeToggle />
       <div className="ml-auto w-fit">
         <UserButton />
