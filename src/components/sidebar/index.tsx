@@ -13,6 +13,7 @@ import { themeContext } from '../../context';
 import { TbUserHexagon } from 'react-icons/tb';
 import { TbWallet } from 'react-icons/tb';
 import { FaWpexplorer } from 'react-icons/fa6';
+import { FaPlane } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
 const montserrat = Montserrat({
@@ -28,7 +29,13 @@ const routes = [
     color: 'text-sky-500',
   },
   {
-    label: 'Explore',
+    label: 'Cities',
+    icon: FaPlane,
+    href: '/city',
+    color: 'text-sky-500',
+  },
+  {
+    label: 'Explore Nearby',
     icon: FaWpexplorer,
     href: '/explore',
     color: 'text-violet-500',

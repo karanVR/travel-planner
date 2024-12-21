@@ -56,30 +56,29 @@ const SearchPlace = () => {
           again.
         </p>
       )}
-      {places && places.results && places.results.length > 0 ? (
-        places.results.map((place: any) => (
-          <div key={place.fsq_id} className="border rounded p-4 mb-4">
-            <h2 className="text-2xl font-bold">{place.name}</h2>
-            <p>
-              <strong>Category:</strong> {place.categories?.[0]?.name || 'N/A'}
-            </p>
-            <p>
-              <strong>Address:</strong> {place.location?.address || 'N/A'}
-            </p>
-            <p>
-              <strong>Distance:</strong> {place.distance} meters
-            </p>
-            <p>
-              <strong>Latitude:</strong> {place.location?.lat || 'N/A'}
-            </p>
-            <p>
-              <strong>Longitude:</strong> {place.location?.lng || 'N/A'}
-            </p>
-          </div>
-        ))
-      ) : (
-        searchTerm!=='' && <p>No places found for the given search.</p>
-      )}
+      {places && places.results && places.results.length > 0
+        ? places.results.map((place: any) => (
+            <div key={place.fsq_id} className="border rounded p-4 mb-4">
+              <h2 className="text-2xl font-bold">{place.name}</h2>
+              <p>
+                <strong>Category:</strong>{' '}
+                {place.categories?.[0]?.name || 'N/A'}
+              </p>
+              <p>
+                <strong>Address:</strong> {place.location?.address || 'N/A'}
+              </p>
+              <p>
+                <strong>Distance:</strong> {place.distance} meters
+              </p>
+              <p>
+                <strong>Latitude:</strong> {place.location?.lat || 'N/A'}
+              </p>
+              <p>
+                <strong>Longitude:</strong> {place.location?.lng || 'N/A'}
+              </p>
+            </div>
+          ))
+        : searchTerm !== '' && <p>No places found for the given search.</p>}
     </div>
   );
 };
