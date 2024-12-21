@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import useWindowDimensions from '../../hooks/useWindowDimensions.hook';
 import { CITIES } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
@@ -72,7 +73,7 @@ const Dashboad = () => {
         >
           {data!?.map((city: any, index: number) => (
             <div
-              key={city}
+              key={uuidv4()}
               className={cn(
                 'border rounded-lg p-4 shadow ',
                 windowWidth! > 740 ? 'w-[30%] h-[30vw]' : 'w-[90%]',
@@ -80,10 +81,10 @@ const Dashboad = () => {
             >
               <h2 className="text-xl font-semibold">{city.name}</h2>
               <p>
-                <text>Temperature:</text> {city.weather.main.temp}°C
+                <p>Temperature:</p> {city.weather.main.temp}°C
               </p>
               <p>
-                <strong>Weather:</strong> {city.weather.weather[0].description}
+                <p>Weather:</p> {city.weather.weather[0].description}
               </p>
               <h3 className="text-lg font-semibold mt-2">Places to Visit:</h3>
               <ul>

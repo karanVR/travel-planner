@@ -13,6 +13,7 @@ import { themeContext } from '../../../lib/context';
 import { TbUserHexagon } from 'react-icons/tb';
 import { TbWallet } from 'react-icons/tb';
 import { FaWpexplorer } from 'react-icons/fa6';
+import { v4 as uuidv4 } from 'uuid';
 
 const montserrat = Montserrat({
   weight: '600',
@@ -67,7 +68,7 @@ const Sidebar = () => {
           {routes.map((route) => (
             <Link
               href={route.href}
-              key={route.href}
+              key={uuidv4()}
               className={cn(
                 'text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition',
                 // pathname === route.href

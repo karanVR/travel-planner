@@ -66,15 +66,15 @@ export default function RootLayout({
                 )}
               >
                 <header className="flex justify-between">
-                  <text className="font-bold text-2xl pl-6">
+                  <div className="font-bold text-2xl pl-6">
                     <TpLogo />
-                  </text>
+                  </div>
                   <HeaderRightThemeToggle />
                 </header>
                 <main>
                   <SignedOut>
                     <div className="flex w-[100dvw] h-[100dvh] items-center justify-center">
-                      <SignIn routing="hash" />
+                      <SignIn routing="hash" forceRedirectUrl="/dashboard" />
                     </div>
                   </SignedOut>
                   <SignedIn>
