@@ -43,7 +43,7 @@ export default function RootLayout({
             <body className={` ${poppins.variable} antialiased`}>
               <div
                 className={clsx(
-                  'flex flex-col w-[100%] flex-grow-1 h-[100%] justify-start py-4',
+                  'flex flex-col w-[100%] flex-grow-1 h-[100%] min-h-[100vh] justify-start py-4',
                   { 'bg-black text-white': appTheme === 'dark' },
                 )}
               >

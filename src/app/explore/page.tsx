@@ -12,7 +12,6 @@ const SearchPlace = () => {
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const { appTheme } = useContext(themeContext);
 
-  // Debounce the user input
   useEffect(() => {
     const handler = _.debounce(() => {
       setDebouncedSearch(searchTerm);
@@ -23,7 +22,6 @@ const SearchPlace = () => {
     return () => handler.cancel();
   }, [searchTerm]);
 
-  // Fetch place details with React Query
   const {
     data: places,
     isLoading,
@@ -80,7 +78,7 @@ const SearchPlace = () => {
           </div>
         ))
       ) : (
-        <p>No places found for the given search.</p>
+        searchTerm!=='' && <p>No places found for the given search.</p>
       )}
     </div>
   );
