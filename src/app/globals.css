@@ -62,6 +62,13 @@ body {
   }
 }
 
+.animated-btn:hover {
+  transform: scale(1.03);
+  transition: transform 0.2s ease;
+  transition-delay: 20ms;
+  will-change: transform;
+}
+
 @layer base {
   * {
     @apply border-border;

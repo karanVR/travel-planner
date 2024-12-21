@@ -7,7 +7,8 @@ import { CITIES } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPlaces, fetchWeather } from '@/lib/api-utils/api';
 import { cn } from '@/lib/utils';
-import { themeContext } from '../../../lib/context';
+import { themeContext } from '../../context';
+import CityCard from '@/components/cityCard';
 
 const Dashboad = () => {
   const { width: windowWidth } = useWindowDimensions();
@@ -47,7 +48,12 @@ const Dashboad = () => {
           >
             Discover the vacation of your dreams
           </h2>
-          <p className={cn('', windowWidth! > 740 ? 'text-sm' : 'text-xs')}>
+          <p
+            className={cn(
+              'text-zinc',
+              windowWidth! > 740 ? 'text-sm' : 'text-xs',
+            )}
+          >
             Search low prices on flights, hotels, food and much more...
           </p>
         </div>
@@ -71,31 +77,28 @@ const Dashboad = () => {
             windowWidth! < 740 ? 'flex-col' : 'flex-row',
           )}
         >
-          {data!?.map((city: any, index: number) => (
-            <div
-              key={uuidv4()}
-              className={cn(
-                'border rounded-lg p-4 shadow ',
-                windowWidth! > 740 ? 'w-[30%] h-[30vw]' : 'w-[90%]',
-              )}
-            >
-              <h2 className="text-xl font-semibold">{city.name}</h2>
-              <p>
-                <p>Temperature:</p> {city.weather.main.temp}°C
-              </p>
-              <p>
-                <p>Weather:</p> {city.weather.weather[0].description}
-              </p>
-              <h3 className="text-lg font-semibold mt-2">Places to Visit:</h3>
-              <ul>
-                {city.places.map((place: any, i: number) => (
-                  <li key={place} className="text-sm">
-                    {place.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {data!?.map((city: any, index: number) => {
+            const {
+              name,
+              weather: {
+                main: { temp, feels_like },
+              },
+              places,
+            } = city;
+            return (
+              <CityCard
+                key={uuidv4()}
+                name={name}
+                temprature={temp}
+                feels_like={feels_like}
+                placesToVisit={places}
+                weather_description={city.weather.weather[0].description}
+                // cover={}
+                // flag={}
+                // country={}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

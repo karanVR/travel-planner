@@ -3,18 +3,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Poppins } from 'next/font/google';
 import './globals.css';
-import {
-  ClerkProvider,
-  SignIn,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from '@clerk/nextjs';
+import { ClerkProvider, SignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { themeContext } from '../../lib/context';
-import ThemeToggle from '../components/themeToggle';
+import { themeContext } from '../context';
 import clsx from 'clsx';
 import HeaderRightThemeToggle from '../components/headerRightThemeProfile';
 import TpLogo from '../components/tpLogo';
@@ -24,16 +16,6 @@ import Sidebar from '../components/sidebar';
 import { cn } from '@/lib/utils';
 
 const queryClient = new QueryClient();
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -93,7 +75,6 @@ export default function RootLayout({
                       </div>
                     </div>
                   </SignedIn>
-                  {/* <SignedIn>{windowWidth!<740?<Navbar />: <Sidebar />}{children}</SignedIn> */}
                 </main>
               </div>
             </body>

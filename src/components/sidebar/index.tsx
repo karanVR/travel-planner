@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { VscLayoutMenubar } from 'react-icons/vsc';
 import { cn } from '../../../lib/utils';
 import logo from '../../assets/images/logo.png';
-import { themeContext } from '../../../lib/context';
+import { themeContext } from '../../context';
 import { TbUserHexagon } from 'react-icons/tb';
 import { TbWallet } from 'react-icons/tb';
 import { FaWpexplorer } from 'react-icons/fa6';
