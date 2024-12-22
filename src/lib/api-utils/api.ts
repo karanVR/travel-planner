@@ -73,3 +73,14 @@ export const fetchCityDetails = async (cityName: string) => {
 
   return data[0];
 };
+
+export const fetchCountryDetails = async (countryCode: string) => {
+  const response = await fetch(
+    `https://restcountries.com/v3.1/alpha/${countryCode}`,
+  );
+  if (!response.ok) {
+    throw new Error('Failed to fetch country details');
+  }
+  const countryData = await response.json();
+  return countryData[0];
+};

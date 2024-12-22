@@ -1,49 +1,138 @@
 'use client';
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { fetchCityDetails } from '@/lib/api-utils/api';
+import {
+  fetchCityDetails,
+  fetchCountryDetails,
+  fetchPlaces,
+  fetchWeather,
+} from '@/lib/api-utils/api';
+import { themeContext } from '@/context';
+import { cn } from '@/lib/utils';
 
 const CityDetailsDynamicPage = () => {
   const params = useParams();
   const cityName = decodeURIComponent(params!?.cityName as any);
+  const { appTheme } = useContext(themeContext);
 
-  const { data, isLoading, isError, error } = useQuery({
+  const {
+    data: cityData,
+    isLoading: isCityLoading,
+    isError: isCityError,
+    error: cityError,
+  } = useQuery({
     queryKey: ['cityDetails', cityName],
     queryFn: () => fetchCityDetails(cityName),
     enabled: !!cityName,
     staleTime: 1000 * 60 * 10,
   });
 
+  const {
+    data: countryData,
+    isLoading: isCountryLoading,
+    isError: isCountryError,
+    error: countryError,
+  } = useQuery({
+    queryKey: ['countryDetails', cityData?.country],
+    queryFn: () => fetchCountryDetails(cityData?.country),
+    enabled: !!cityData?.country,
+    staleTime: 1000 * 60 * 10,
+  });
+
+  const {
+    data: weatherData,
+    isLoading: isWeatherLoading,
+    isError: isWeatherError,
+    error: weatherError,
+  } = useQuery({
+    queryKey: ['weatherData', cityData?.latitude, cityData?.longitude],
+    queryFn: () => fetchWeather(cityData?.latitude, cityData?.longitude),
+    enabled: !!cityData?.latitude && !!cityData?.longitude,
+    staleTime: 1000 * 60 * 10,
+  });
+
+  const {
+    data: placesData,
+    isLoading: isPlacesLoading,
+    isError: isPlacesError,
+    error: placesError,
+  } = useQuery({
+    queryKey: ['placesData', cityData?.latitude, cityData?.longitude],
+    queryFn: () => fetchPlaces(cityData?.latitude, cityData?.longitude),
+    enabled: !!cityData?.latitude && !!cityData?.longitude,
+    staleTime: 1000 * 60 * 10,
+  });
+
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mb-4 text-center">City Details</h1>
-
-      {isLoading && <p>Loading city details...</p>}
-      {isError && <p className="text-red-500">Error: {error.message}</p>}
-
-      {data && (
-        <div className="border rounded p-4 mb-4">
-          <h2 className="text-2xl font-bold">{data.name}</h2>
-          <p>
-            <strong>Country:</strong> {data.country}
+      <h1
+        className={cn(
+          'text-4xl font-bold pb-8 m-auto w-[100vw]',
+          appTheme === 'light'
+            ? 'bg-gradient-to-r from-red-400 to-pink-600 text-transparent bg-clip-text'
+            : 'bg-gradient-to-r from-red-500 to-purple-700 text-transparent bg-clip-text',
+        )}
+      >
+        City Details
+      </h1>
+      {cityData && countryData && (
+        <div className="flex flex-col gap-2">
+          <div className="flex space-between w-[100%]">
+            {' '}
+            <h2 className="text-2xl font-bold">{cityData.name}</h2>
+            <button className="px-2 py-2 bg-red-400 ml-auto rounded-md text-xs">
+              Save to itenary
+            </button>
+          </div>
+          <p className="font-bold text-lg">
+            {countryData.name.common}
+            {countryData.flag},
+            {cityData.region && (
+              <span className="font-light text-sm">
+                Region: {cityData.region}
+              </span>
+            )}
           </p>
-          <p>
-            <strong>Region:</strong> {data.region}
-          </p>
-          <p>
-            <strong>Population:</strong>{' '}
-            {data.population?.toLocaleString() || 'N/A'}
-          </p>
-          <p>
-            <strong>Latitude:</strong> {data.latitude}
-          </p>
-          <p>
-            <strong>Longitude:</strong> {data.longitude}
-          </p>
+          <p>Population: {cityData.population?.toLocaleString() || 'N/A'}</p>
         </div>
       )}
+
+      {isCityLoading && <p>Loading city details...</p>}
+      {isCityError && (
+        <p className="text-red-500">Error: {cityError.message}</p>
+      )}
+
+      {isCountryLoading && <p>Loading country details...</p>}
+      {isCountryError && (
+        <p className="text-red-500">Error: {countryError.message}</p>
+      )}
+
+      <p className="text-xl font-bold mt-4">
+        Weather: <p>{weatherData?.weather[0]?.description}</p>
+      </p>
+      <p>
+        <strong>Temperature:</strong> {weatherData?.main?.temp}°C
+      </p>
+      <p>
+        <strong>Feels like:</strong> {weatherData?.main?.feels_like}°C
+      </p>
+
+      <h3 className="text-xl font-bold mt-4">Places to Visit</h3>
+      <div className="flex flex-wrap gap-2">
+        {placesData?.results?.map((place: any, index: number) => (
+          <div
+            className={cn(
+              'text-sm border rounded-lg p-2 bg-zinc-200',
+              appTheme === 'light' ? '' : 'text-black',
+            )}
+            key={index}
+          >
+            {place.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

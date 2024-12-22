@@ -20,7 +20,6 @@ const CityCard = ({
   const { width: windowWidth } = useWindowDimensions();
   return (
     <div
-      onClick={() => onCityClick!(name!)}
       className={cn(
         'flex flex-col relative gap-2 border rounded-lg p-4 shadow cursor-pointer',
         windowWidth! > 740 ? 'w-[100%] h-[53vh]' : 'w-[100%]',

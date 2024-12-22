@@ -59,16 +59,16 @@ const CityPage = () => {
     <div
       className={`p-4 ${appTheme === 'light' ? 'text-black' : 'text-white'}`}
     >
-    <h1
-  className={cn(
-    'text-3xl font-bold mb-4 text-center',
-    appTheme === 'light'
-      ? 'bg-gradient-to-r from-red-400 to-pink-600 text-transparent bg-clip-text'
-      : 'bg-gradient-to-r from-red-500 to-purple-700 text-transparent bg-clip-text'
-  )}
->
-  Search a travel destination
-</h1>
+      <h1
+        className={cn(
+          'text-3xl font-bold mb-4 text-center',
+          appTheme === 'light'
+            ? 'bg-gradient-to-r from-red-400 to-pink-600 text-transparent bg-clip-text'
+            : 'bg-gradient-to-r from-red-500 to-purple-700 text-transparent bg-clip-text',
+        )}
+      >
+        Search a travel destination
+      </h1>
       <div className="mb-6 flex gap-2">
         <input
           type="text"
@@ -90,7 +90,7 @@ const CityPage = () => {
       ) : error instanceof Error ? (
         <p className="text-red-500">Error: {error.message}</p>
       ) : data ? (
-        <div className={cn('mb-4', windowWidth!>740?"max-w-[25vw] ":"")}>
+        <div className={cn('mb-4', windowWidth! > 740 ? 'max-w-[25vw] ' : '')}>
           <CityCard
             key={data.name}
             name={data.name}
@@ -109,7 +109,9 @@ const CityPage = () => {
       ) : (
         searchTerm !== '' && <p>No city searched yet.</p>
       )}
-      <p className='text-center text-zinc-500 '>Or select from below featured cities</p>
+      <p className="text-center text-zinc-500 ">
+        Or select from below featured cities
+      </p>
       <FeaturedCities />
     </div>
   );
