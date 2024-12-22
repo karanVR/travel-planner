@@ -8,4 +8,6 @@ export interface ICityCardProps {
   cover?: string;
   flag?: string;
   onCityClick?: any;
+  latitude?:number;
+  longitude?:number;
 }

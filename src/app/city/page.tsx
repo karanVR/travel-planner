@@ -20,6 +20,7 @@ const CityPage = () => {
   const [cityQuery, setCityQuery] = useState('');
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
+  let placesCoordinates = {}
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['cityData', cityQuery],
@@ -31,6 +32,9 @@ const CityPage = () => {
       if (!cityDetails) throw new Error('City not found');
 
       const { latitude, longitude } = cityDetails;
+      placesCoordinates = cityDetails;
+      console.log(placesCoordinates,'coord')
+      
 
       const weather = await fetchWeather(latitude, longitude);
       const places = await fetchPlaces(latitude, longitude);
@@ -98,6 +102,8 @@ const CityPage = () => {
             feels_like={data.weather?.main?.feels_like}
             placesToVisit={data.places || []}
             weather_description={data.weather?.weather[0]?.description}
+            // latitude={placesCoordinates?.latitude}
+            // longitude={placesCoordinates?.longitude}
           />
           <button
             onClick={handleCardClick}
