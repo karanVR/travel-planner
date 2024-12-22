@@ -7,4 +7,5 @@ export interface ICityCardProps {
   weather_description?: string;
   cover?: string;
   flag?: string;
+  onCityClick?: any;
 }

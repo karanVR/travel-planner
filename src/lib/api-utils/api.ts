@@ -48,9 +48,6 @@ export const fetchPlaceDetails = async (query: string) => {
   return response.json();
 };
 
-
-
-
 export const fetchCityDetails = async (cityName: string) => {
   const API_KEY =
     process.env.NEXT_PUBLIC_API_NINJAS_API_KEY ??
@@ -61,7 +58,7 @@ export const fetchCityDetails = async (cityName: string) => {
 
   const response = await fetch(
     `https://api.api-ninjas.com/v1/city?name=${encodeURIComponent(cityName)}`,
-    { headers: { 'X-Api-Key': API_KEY } }
+    { headers: { 'X-Api-Key': API_KEY } },
   );
 
   if (!response.ok) {
@@ -76,4 +73,3 @@ export const fetchCityDetails = async (cityName: string) => {
 
   return data[0];
 };
-

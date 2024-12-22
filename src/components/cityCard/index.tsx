@@ -15,13 +15,15 @@ const CityCard = ({
   weather_description,
   cover,
   flag,
+  onCityClick,
 }: ICityCardProps) => {
   const { width: windowWidth } = useWindowDimensions();
   return (
     <div
+      onClick={() => onCityClick!(name!)}
       className={cn(
         'flex flex-col relative gap-2 border rounded-lg p-4 shadow cursor-pointer',
-        windowWidth! > 740 ? 'w-[30%] h-[25vw]' : 'w-[90%]',
+        windowWidth! > 740 ? 'w-[100%] h-[53vh]' : 'w-[100%]',
       )}
     >
       <img

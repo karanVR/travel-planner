@@ -49,4 +49,3 @@ const CityDetailsDynamicPage = () => {
 };
 
 export default CityDetailsDynamicPage;
-
