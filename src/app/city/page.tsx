@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { fetchCityDetails } from '@/lib/api-utils/api';
 import { cn } from '@/lib/utils';
@@ -10,6 +11,7 @@ const CityDetailsPage = () => {
   const [cityName, setCityName] = useState('');
   const [submittedCity, setSubmittedCity] = useState('');
   const { appTheme } = useContext(themeContext);
+  const router = useRouter();
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ['cityDetails', submittedCity],
@@ -24,9 +26,13 @@ const CityDetailsPage = () => {
     }
   };
 
+  const handleCardClick = (city: string) => {
+    router.push(`/city/${encodeURIComponent(city)}`);
+  };
+
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mb-4 text-center">City Details</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center">Search City Details</h1>
       <div className="mb-6">
         <input
           type="text"
@@ -48,8 +54,12 @@ const CityDetailsPage = () => {
 
       {isLoading && <p>Loading city details...</p>}
       {isError && <p className="text-red-500">Error: {error.message}</p>}
+
       {data && (
-        <div className="border rounded p-4 mb-4">
+        <div
+          onClick={() => handleCardClick(data.name)}
+          className="cursor-pointer border rounded p-4 mb-4 hover:shadow-lg"
+        >
           <h2 className="text-2xl font-bold">{data.name}</h2>
           <p>
             <strong>Country:</strong> {data.country}

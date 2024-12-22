@@ -48,26 +48,32 @@ export const fetchPlaceDetails = async (query: string) => {
   return response.json();
 };
 
+
+
+
 export const fetchCityDetails = async (cityName: string) => {
   const API_KEY =
     process.env.NEXT_PUBLIC_API_NINJAS_API_KEY ??
     'zGmrq2LHEtfJzdIKoJjeBQ==TSqIsmn9kjvjFvB5';
-
   if (!cityName) {
     throw new Error('City name is required');
   }
 
   const response = await fetch(
     `https://api.api-ninjas.com/v1/city?name=${encodeURIComponent(cityName)}`,
-    { headers: { 'X-Api-Key': API_KEY } },
+    { headers: { 'X-Api-Key': API_KEY } }
   );
+
   if (!response.ok) {
     throw new Error('Failed to fetch city details');
   }
+
   const data = await response.json();
+
   if (data.length === 0) {
     throw new Error('No city data found for the given name');
   }
 
   return data[0];
 };
+
