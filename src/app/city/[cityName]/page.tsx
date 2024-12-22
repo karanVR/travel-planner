@@ -11,6 +11,7 @@ import {
 } from '@/lib/api-utils/api';
 import { themeContext } from '@/context';
 import { cn } from '@/lib/utils';
+import MapComponent from '@/components/mapComponent';
 
 const CityDetailsDynamicPage = () => {
   const params = useParams();
@@ -65,6 +66,15 @@ const CityDetailsDynamicPage = () => {
     staleTime: 1000 * 60 * 10,
   });
 
+  const places = placesData?.results.map((place: any) => ({
+    latitude: place?.geocodes?.main?.latitude,
+    longitude: place?.geocodes?.main?.longitude,
+    name: place?.name,
+  }));
+
+  console.log(placesData,'placesData')
+
+
   return (
     <div className="p-4">
       <h1
@@ -82,7 +92,7 @@ const CityDetailsDynamicPage = () => {
           <div className="flex space-between w-[100%]">
             {' '}
             <h2 className="text-2xl font-bold">{cityData.name}</h2>
-            <button className="px-2 py-2 bg-red-400 ml-auto rounded-md text-xs">
+            <button className="animated-btn px-2 py-2 bg-red-400 ml-auto rounded-md text-xs">
               Save to itenary
             </button>
           </div>
@@ -119,12 +129,20 @@ const CityDetailsDynamicPage = () => {
         <strong>Feels like:</strong> {weatherData?.main?.feels_like}°C
       </p>
 
-      <h3 className="text-xl font-bold mt-4">Places to Visit</h3>
+      {isPlacesLoading && <p>Loading places to visit...</p>}
+      {isPlacesError && <p className="text-red-500">Error: {placesError.message}</p>}
+
+      {places && (
+        <div className="border rounded p-2 my-4">
+          <h3 className="text-xl font-bold">Places to Visit</h3>
+          <MapComponent places={places} />
+        </div>
+      )}
       <div className="flex flex-wrap gap-2">
         {placesData?.results?.map((place: any, index: number) => (
           <div
             className={cn(
-              'text-sm border rounded-lg p-2 bg-zinc-200',
+              'cursor-pointer animated-btn text-sm border rounded-lg p-2 bg-zinc-200',
               appTheme === 'light' ? '' : 'text-black',
             )}
             key={index}
@@ -133,6 +151,7 @@ const CityDetailsDynamicPage = () => {
           </div>
         ))}
       </div>
+      
     </div>
   );
 };
