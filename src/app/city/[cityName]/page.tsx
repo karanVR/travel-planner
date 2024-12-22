@@ -11,7 +11,8 @@ import {
 } from '@/lib/api-utils/api';
 import { themeContext } from '@/context';
 import { cn } from '@/lib/utils';
-import MapComponent from '@/components/mapComponent';
+import dynamic from 'next/dynamic';
+const MapComponent = dynamic(() => import('@/components/mapComponent'), { ssr: false });
 
 const CityDetailsDynamicPage = () => {
   const params = useParams();
