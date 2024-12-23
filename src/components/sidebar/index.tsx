@@ -1,17 +1,13 @@
 'use client';
 
-import clsx from 'clsx';
 import { Montserrat } from 'next/font/google';
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { VscLayoutMenubar } from 'react-icons/vsc';
 import { cn } from '../../../lib/utils';
-import logo from '../../assets/images/logo.png';
 import { themeContext } from '@/hooks/useThemeContext.hook';
 import { TbUserHexagon } from 'react-icons/tb';
-import { TbWallet } from 'react-icons/tb';
 import { FaWpexplorer } from 'react-icons/fa6';
 import { FaPlane } from 'react-icons/fa';
 import { BiSolidCity } from 'react-icons/bi';
@@ -46,12 +42,6 @@ const routes = [
     icon: TbUserHexagon,
     href: '/profile',
     color: 'text-red-500',
-  },
-  {
-    label: 'Wallet',
-    icon: TbWallet,
-    href: '/wallet',
-    color: 'text-yellow-500',
   },
   {
     label: 'Saved Cities',

@@ -15,7 +15,9 @@ import dynamic from 'next/dynamic';
 import {
   CityData,
   savedCitiesContext,
+  useSavedCities,
 } from '@/hooks/useSavedCitiesContext.hook';
+import SaveButton from '@/components/addCityButton';
 const MapComponent = dynamic(() => import('@/components/mapComponent'), {
   ssr: false,
 });
@@ -27,7 +29,10 @@ const CityDetailsDynamicPage = () => {
   const params = useParams();
   const cityName = decodeURIComponent(params!?.cityName as any);
   const { appTheme } = useContext(themeContext);
-  const { addCity } = useContext(savedCitiesContext);
+  const { addCity, removeCity } = useContext(savedCitiesContext);
+  const { savedCities } = useSavedCities();
+
+
 
   const {
     data: cityData,
@@ -83,8 +88,10 @@ const CityDetailsDynamicPage = () => {
     name: place?.name,
   }));
 
+  const isCitySaved = savedCities.some((savedCity: any) => savedCity.name === cityData!?.name);
+
   const handleSaveCity = () => {
-    if (cityData && weatherData) {
+    if (!isCitySaved&&cityData && weatherData) {
       const cityDetails: CityData = {
         name: cityData.name,
         weather: weatherData,
@@ -92,7 +99,12 @@ const CityDetailsDynamicPage = () => {
       };
       addCity(cityDetails);
     }
+    if(isCitySaved){
+      removeCity(cityData.name)
+    }
   };
+
+ 
 
   return (
     <div className="p-4">
@@ -111,12 +123,7 @@ const CityDetailsDynamicPage = () => {
           <div className="flex space-between w-[100%]">
             {' '}
             <h2 className="text-2xl font-bold">{cityData.name}</h2>
-            <button
-              className="animated-btn px-2 py-2 bg-red-400 ml-auto rounded-md text-xs"
-              onClick={handleSaveCity}
-            >
-              Save to Itinerary
-            </button>
+           <SaveButton city={cityData.name} onButtonClick={handleSaveCity}/>
           </div>
           <p className="font-bold text-lg">
             {countryData.name.common}

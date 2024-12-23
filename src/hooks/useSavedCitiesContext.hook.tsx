@@ -17,11 +17,13 @@ export interface CityData {
 interface SavedCitiesContextType {
   savedCities: CityData[];
   addCity: (city: CityData) => void;
+  removeCity: (cityName: string) => void;
 }
 
 export const savedCitiesContext = createContext<SavedCitiesContextType>({
   savedCities: [],
   addCity: () => {},
+  removeCity: () => {},
 });
 
 export const SavedCitiesProvider = ({
@@ -56,8 +58,17 @@ export const SavedCitiesProvider = ({
     });
   };
 
+  const removeCity = (cityName: string) => {
+    setSavedCities((prev) =>
+      prev.filter(
+        (savedCity) =>
+          savedCity.name.toLowerCase() !== cityName.toLowerCase(),
+      ),
+    );
+  };
+
   return (
-    <savedCitiesContext.Provider value={{ savedCities, addCity }}>
+    <savedCitiesContext.Provider value={{ savedCities, addCity, removeCity }}>
       {children}
     </savedCitiesContext.Provider>
   );
