@@ -6,7 +6,7 @@ import './globals.css';
 import { ClerkProvider, SignIn, SignedIn, SignedOut } from '@clerk/nextjs';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
-import { themeContext } from '../context';
+import { themeContext } from '@/context/themeContext'
 import clsx from 'clsx';
 import HeaderRightThemeToggle from '../components/headerRightThemeProfile';
 import TpLogo from '../components/tpLogo';
@@ -14,6 +14,8 @@ import Navbar from '../components/navbar';
 import useWindowDimensions from '../hooks/useWindowDimensions.hook';
 import Sidebar from '../components/sidebar';
 import { cn } from '@/lib/utils';
+import { SavedCitiesProvider } from '@/context/savedCitiesContext';
+import { ThemeProvider } from '@/context/themeContext';
 
 const queryClient = new QueryClient();
 
@@ -37,15 +39,13 @@ export default function RootLayout({
   const { width: windowWidth } = useWindowDimensions();
   return (
     <ClerkProvider>
-      <themeContext.Provider value={{ appTheme, setAppTheme }}>
+      <ThemeProvider>
+      <SavedCitiesProvider>
         <QueryClientProvider client={queryClient}>
           <html lang="en">
             <body className={` ${poppins.variable} antialiased`}>
               <div
-                className={clsx(
-                  'flex flex-col w-[100%] flex-grow-1 h-[100%] min-h-[100vh] justify-start py-4',
-                  { 'bg-black text-white': appTheme === 'dark' },
-                )}
+                className={cn('flex flex-col w-[100%] flex-grow-1 h-[100%] min-h-[100vh] justify-start py-4',appTheme==='light'?'bg-white-text-black':'bg-black text-white')}       
               >
                 <header className="flex justify-between">
                   <div className="font-bold text-2xl pl-6">
@@ -80,7 +80,8 @@ export default function RootLayout({
             </body>
           </html>
         </QueryClientProvider>
-      </themeContext.Provider>
+      </SavedCitiesProvider>
+      </ThemeProvider>
     </ClerkProvider>
   );
 }

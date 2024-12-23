@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import _ from 'lodash';
 import { fetchPlaceDetails } from '@/lib/api-utils/api';
 import { cn } from '@/lib/utils';
-import { themeContext } from '@/context';
+import { themeContext } from '@/context/themeContext';
 
 const SearchPlace = () => {
   const [searchTerm, setSearchTerm] = useState('');

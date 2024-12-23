@@ -1,8 +1,6 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-
-
 interface Place {
   latitude: number;
   longitude: number;
@@ -13,7 +11,7 @@ interface MapComponentProps {
   places: Place[];
 }
 
-  const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API
+const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API;
 
 const MapComponent: React.FC<MapComponentProps> = ({ places }) => {
   const containerStyle = { width: '100%', height: '400px' };

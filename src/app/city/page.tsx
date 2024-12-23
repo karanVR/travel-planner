@@ -9,7 +9,7 @@ import {
   fetchCityDetails,
 } from '@/lib/api-utils/api';
 import CityCard from '@/components/cityCard';
-import { themeContext } from '@/context';
+import { themeContext } from '@/context/themeContext';
 import FeaturedCities from '@/components/featuredCities';
 import { cn } from '@/lib/utils';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
@@ -20,7 +20,7 @@ const CityPage = () => {
   const [cityQuery, setCityQuery] = useState('');
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
-  let placesCoordinates = {}
+  let placesCoordinates = {};
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['cityData', cityQuery],
@@ -33,8 +33,7 @@ const CityPage = () => {
 
       const { latitude, longitude } = cityDetails;
       placesCoordinates = cityDetails;
-      console.log(placesCoordinates,'coord')
-      
+      console.log(placesCoordinates, 'coord');
 
       const weather = await fetchWeather(latitude, longitude);
       const places = await fetchPlaces(latitude, longitude);

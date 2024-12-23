@@ -33,14 +33,14 @@ const CityCard = ({
         width="100%"
         className="object-contain aspect-video"
       /> */}
-       {/* <MapComponent places={places} /> */}
+      {/* <MapComponent places={places} /> */}
       <div className="flex flex-row gap-4 w-[100%] items-center space-between">
         <p className="font-bold w-fit inline">{name}</p>
         <div
           title="Save"
           className="ml-auto flex rounded-xl px-2 py-1 items-center text-gray-500 gap-2 hover:scale-[1.25] transition-all duration-200 ease-in"
         >
-          <FiBookmark size="22px" />
+          {<FiBookmark size="22px" />}
         </div>
       </div>
       {(country || flag) && (

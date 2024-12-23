@@ -9,15 +9,19 @@ import {
   fetchPlaces,
   fetchWeather,
 } from '@/lib/api-utils/api';
-import { themeContext } from '@/context';
+import { themeContext } from '@/context/themeContext'
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
-const MapComponent = dynamic(() => import('@/components/mapComponent'), { ssr: false });
+import { CityData, savedCitiesContext } from '@/context/savedCitiesContext';
+const MapComponent = dynamic(() => import('@/components/mapComponent'), {
+  ssr: false,
+});
 
 const CityDetailsDynamicPage = () => {
   const params = useParams();
   const cityName = decodeURIComponent(params!?.cityName as any);
   const { appTheme } = useContext(themeContext);
+  const { addCity } = useContext(savedCitiesContext);
 
   const {
     data: cityData,
@@ -73,8 +77,16 @@ const CityDetailsDynamicPage = () => {
     name: place?.name,
   }));
 
-  console.log(placesData,'placesData')
-
+  const handleSaveCity = () => {
+    if (cityData && weatherData) {
+      const cityDetails: CityData = {
+        name: cityData.name,
+        weather: weatherData,
+        places: places || [],
+      };
+      addCity(cityDetails);
+    }
+  };
 
   return (
     <div className="p-4">
@@ -93,8 +105,11 @@ const CityDetailsDynamicPage = () => {
           <div className="flex space-between w-[100%]">
             {' '}
             <h2 className="text-2xl font-bold">{cityData.name}</h2>
-            <button className="animated-btn px-2 py-2 bg-red-400 ml-auto rounded-md text-xs">
-              Save to itenary
+            <button
+              className="animated-btn px-2 py-2 bg-red-400 ml-auto rounded-md text-xs"
+              onClick={handleSaveCity}
+            >
+              Save to Itinerary
             </button>
           </div>
           <p className="font-bold text-lg">
@@ -131,7 +146,9 @@ const CityDetailsDynamicPage = () => {
       </p>
 
       {isPlacesLoading && <p>Loading places to visit...</p>}
-      {isPlacesError && <p className="text-red-500">Error: {placesError.message}</p>}
+      {isPlacesError && (
+        <p className="text-red-500">Error: {placesError.message}</p>
+      )}
 
       {places && (
         <div className="border rounded p-2 my-4">
@@ -152,7 +169,6 @@ const CityDetailsDynamicPage = () => {
           </div>
         ))}
       </div>
-      
     </div>
   );
 };

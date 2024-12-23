@@ -7,7 +7,7 @@ import { CITIES } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPlaces, fetchWeather } from '@/lib/api-utils/api';
 import { cn } from '@/lib/utils';
-import { themeContext } from '../../context';
+import { themeContext } from '@/context/themeContext';
 import CityCard from '@/components/cityCard';
 import { useRouter } from 'next/navigation';
 

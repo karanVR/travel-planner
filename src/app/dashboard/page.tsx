@@ -3,7 +3,7 @@
 import React, { useContext } from 'react';
 import useWindowDimensions from '../../hooks/useWindowDimensions.hook';
 import { cn } from '@/lib/utils';
-import { themeContext } from '../../context';
+import { themeContext } from '@/context/themeContext';
 import FeaturedCities from '@/components/featuredCities';
 const Dashboad = () => {
   const { width: windowWidth } = useWindowDimensions();
