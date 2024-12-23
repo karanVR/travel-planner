@@ -9,10 +9,15 @@ import {
   fetchCityDetails,
 } from '@/lib/api-utils/api';
 import CityCard from '@/components/cityCard';
-import { themeContext } from '@/context/themeContext';
+import { themeContext } from '@/hooks/useThemeContext.hook';
 import FeaturedCities from '@/components/featuredCities';
 import { cn } from '@/lib/utils';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
+import dynamic from 'next/dynamic';
+
+const DynamicLoader = dynamic(() => import('@/components/loader'), {
+  ssr: false,
+});
 
 const CityPage = () => {
   const { appTheme } = useContext(themeContext);
@@ -89,7 +94,7 @@ const CityPage = () => {
       </div>
 
       {isLoading ? (
-        <p>Loading...</p>
+        <DynamicLoader />
       ) : error instanceof Error ? (
         <p className="text-red-500">Error: {error.message}</p>
       ) : data ? (

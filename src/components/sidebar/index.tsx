@@ -9,12 +9,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { VscLayoutMenubar } from 'react-icons/vsc';
 import { cn } from '../../../lib/utils';
 import logo from '../../assets/images/logo.png';
-import { themeContext } from '@/context/themeContext';
+import { themeContext } from '@/hooks/useThemeContext.hook';
 import { TbUserHexagon } from 'react-icons/tb';
 import { TbWallet } from 'react-icons/tb';
 import { FaWpexplorer } from 'react-icons/fa6';
 import { FaPlane } from 'react-icons/fa';
-import { BiSolidCity } from "react-icons/bi";
+import { BiSolidCity } from 'react-icons/bi';
 import { v4 as uuidv4 } from 'uuid';
 
 const montserrat = Montserrat({

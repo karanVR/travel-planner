@@ -23,7 +23,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ places }) => {
 
   return (
     <LoadScript googleMapsApiKey={API_KEY!}>
-      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={11}>
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
         {places.map((place, index) => (
           <Marker
             key={index}

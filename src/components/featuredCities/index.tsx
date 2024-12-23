@@ -7,9 +7,13 @@ import { CITIES } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
 import { fetchPlaces, fetchWeather } from '@/lib/api-utils/api';
 import { cn } from '@/lib/utils';
-import { themeContext } from '@/context/themeContext';
+import { themeContext } from '@/hooks/useThemeContext.hook';
 import CityCard from '@/components/cityCard';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+const DynamicLoader = dynamic(() => import('@/components/loader'), {
+  ssr: false,
+});
 
 const FeaturedCities = () => {
   const { width: windowWidth } = useWindowDimensions();
@@ -31,7 +35,7 @@ const FeaturedCities = () => {
     staleTime: 1000 * 60 * 10,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <DynamicLoader />;
   if (error instanceof Error) return <p>Error: {error.message}</p>;
 
   const handleCityClick = (cityName: string) => {

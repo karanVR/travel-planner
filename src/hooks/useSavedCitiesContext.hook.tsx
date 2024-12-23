@@ -24,7 +24,11 @@ export const savedCitiesContext = createContext<SavedCitiesContextType>({
   addCity: () => {},
 });
 
-export const SavedCitiesProvider = ({ children }: { children: React.ReactNode }) => {
+export const SavedCitiesProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [savedCities, setSavedCities] = useState<CityData[]>([]);
 
   useEffect(() => {
@@ -33,13 +37,23 @@ export const SavedCitiesProvider = ({ children }: { children: React.ReactNode })
       setSavedCities(JSON.parse(savedCitiesFromStorage));
     }
   }, []);
-  
+
   useEffect(() => {
     localStorage.setItem('savedCities', JSON.stringify(savedCities));
   }, [savedCities]);
 
   const addCity = (city: CityData) => {
-    setSavedCities((prev) => [...prev, city]);
+    setSavedCities((prev) => {
+      if (
+        prev.some(
+          (savedCity) =>
+            savedCity.name.toLowerCase() === city.name.toLowerCase(),
+        )
+      ) {
+        return prev;
+      }
+      return [...prev, city];
+    });
   };
 
   return (

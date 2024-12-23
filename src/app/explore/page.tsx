@@ -5,7 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import _ from 'lodash';
 import { fetchPlaceDetails } from '@/lib/api-utils/api';
 import { cn } from '@/lib/utils';
-import { themeContext } from '@/context/themeContext';
+import { themeContext } from '@/hooks/useThemeContext.hook';
+import dynamic from 'next/dynamic';
+const DynamicLoader = dynamic(() => import('@/components/loader'), {
+  ssr: false,
+});
 
 const SearchPlace = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -49,7 +53,7 @@ const SearchPlace = () => {
         />
       </div>
 
-      {isLoading && <p>Loading place details...</p>}
+      {isLoading && <DynamicLoader />}
       {isError && (
         <p>
           Failed to fetch place details. Please check the search term and try

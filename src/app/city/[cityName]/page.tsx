@@ -9,11 +9,17 @@ import {
   fetchPlaces,
   fetchWeather,
 } from '@/lib/api-utils/api';
-import { themeContext } from '@/context/themeContext'
+import { themeContext } from '@/hooks/useThemeContext.hook';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
-import { CityData, savedCitiesContext } from '@/context/savedCitiesContext';
+import {
+  CityData,
+  savedCitiesContext,
+} from '@/hooks/useSavedCitiesContext.hook';
 const MapComponent = dynamic(() => import('@/components/mapComponent'), {
+  ssr: false,
+});
+const DynamicLoader = dynamic(() => import('@/components/loader'), {
   ssr: false,
 });
 
@@ -125,12 +131,12 @@ const CityDetailsDynamicPage = () => {
         </div>
       )}
 
-      {isCityLoading && <p>Loading city details...</p>}
+      {isCityLoading && <DynamicLoader />}
       {isCityError && (
         <p className="text-red-500">Error: {cityError.message}</p>
       )}
 
-      {isCountryLoading && <p>Loading country details...</p>}
+      {isCountryLoading && <DynamicLoader />}
       {isCountryError && (
         <p className="text-red-500">Error: {countryError.message}</p>
       )}
@@ -145,7 +151,7 @@ const CityDetailsDynamicPage = () => {
         <strong>Feels like:</strong> {weatherData?.main?.feels_like}°C
       </p>
 
-      {isPlacesLoading && <p>Loading places to visit...</p>}
+      {isPlacesLoading && <DynamicLoader />}
       {isPlacesError && (
         <p className="text-red-500">Error: {placesError.message}</p>
       )}

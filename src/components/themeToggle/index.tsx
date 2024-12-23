@@ -1,7 +1,7 @@
 'use client';
 
 import { useContext } from 'react';
-import { themeContext } from '@/context/themeContext';
+import { themeContext } from '@/hooks/useThemeContext.hook';
 import { FaSun } from 'react-icons/fa';
 import { IoIosMoon } from 'react-icons/io';
 import clsx from 'clsx';
