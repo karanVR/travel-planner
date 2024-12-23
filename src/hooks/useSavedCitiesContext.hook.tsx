@@ -48,8 +48,8 @@ export const SavedCitiesProvider = ({
     setSavedCities((prev) => {
       if (
         prev.some(
-          (savedCity) =>
-            savedCity.name.toLowerCase() === city.name.toLowerCase(),
+          (savedCity:any) =>
+            savedCity!.name!.toLowerCase() === city!.name!.toLowerCase(),
         )
       ) {
         return prev;

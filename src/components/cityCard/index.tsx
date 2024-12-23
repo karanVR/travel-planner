@@ -1,10 +1,12 @@
 'use client';
 
+import { savedCitiesContext, useSavedCities } from '@/hooks/useSavedCitiesContext.hook';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import { cn } from '@/lib/utils';
 import { ICityCardProps } from '@/models';
-import React from 'react';
+import React, { useContext } from 'react';
 import { FiBookmark } from 'react-icons/fi';
+import SaveButton from '../addCityButton';
 
 const CityCard = ({
   name,
@@ -20,6 +22,17 @@ const CityCard = ({
   onCityClick,
 }: ICityCardProps) => {
   const { width: windowWidth } = useWindowDimensions();
+    const { addCity, removeCity } = useContext(savedCitiesContext);
+    const { savedCities } = useSavedCities();
+    const isCitySaved = savedCities.some((savedCity: any) => savedCity.name === name!);
+      const handleAddRemove = () => {
+        if (!isCitySaved) {
+          addCity(name as any);
+        }
+        if(isCitySaved){
+          removeCity(name)
+        }
+      };
   return (
     <div
       className={cn(
@@ -36,6 +49,7 @@ const CityCard = ({
       {/* <MapComponent places={places} /> */}
       <div className="flex flex-row gap-4 w-[100%] items-center space-between">
         <p className="font-bold w-fit inline">{name}</p>
+        {/* <SaveButton city={name} onButtonClick={handleAddRemove}/> */}
         {/* <div
           title="Save"
           className="ml-auto flex rounded-xl px-2 py-1 items-center text-gray-500 gap-2 hover:scale-[1.25] transition-all duration-200 ease-in"
