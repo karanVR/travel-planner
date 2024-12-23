@@ -20,12 +20,13 @@ const DynamicLoader = dynamic(() => import('@/components/loader'), {
 });
 
 const CityPage = () => {
+  const [placesCoordinates, setPlacesCoordinates] = useState<any>({ latitude: null, longitude: null });
   const { appTheme } = useContext(themeContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [cityQuery, setCityQuery] = useState('');
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
-  let placesCoordinates = {};
+
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['cityData', cityQuery],
@@ -35,14 +36,10 @@ const CityPage = () => {
       const cityDetails = await fetchCityDetails(cityQuery);
 
       if (!cityDetails) throw new Error('City not found');
-
       const { latitude, longitude } = cityDetails;
-      placesCoordinates = cityDetails;
-      console.log(placesCoordinates, 'coord');
-
+      setPlacesCoordinates({ latitude, longitude });
       const weather = await fetchWeather(latitude, longitude);
       const places = await fetchPlaces(latitude, longitude);
-
       return { name: cityQuery, weather, places: places.results };
     },
     enabled: !!cityQuery,
@@ -62,6 +59,9 @@ const CityPage = () => {
   const handleCardClick = () => {
     router.push(`/city/${encodeURIComponent(cityQuery)}`);
   };
+
+  console.log(placesCoordinates,'coord')
+
 
   return (
     <div
@@ -106,8 +106,8 @@ const CityPage = () => {
             feels_like={data.weather?.main?.feels_like}
             placesToVisit={data.places || []}
             weather_description={data.weather?.weather[0]?.description}
-            // latitude={placesCoordinates?.latitude}
-            // longitude={placesCoordinates?.longitude}
+            latitude={placesCoordinates?.latitude}
+            longitude={placesCoordinates?.longitude}
           />
           <button
             onClick={handleCardClick}

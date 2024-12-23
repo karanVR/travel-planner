@@ -7,6 +7,7 @@ import { ICityCardProps } from '@/models';
 import React, { useContext } from 'react';
 import { FiBookmark } from 'react-icons/fi';
 import SaveButton from '../addCityButton';
+import MapComponent from '../mapComponent';
 
 const CityCard = ({
   name,
@@ -33,11 +34,13 @@ const CityCard = ({
           removeCity(name)
         }
       };
+      console.log(latitude, longitude, name, 'latlong')
+      const places:any = [{latitude: latitude, longitude:longitude}]
   return (
     <div
       className={cn(
         'flex flex-col relative gap-2 border rounded-lg p-4 shadow cursor-pointer',
-        windowWidth! > 740 ? 'w-[100%] h-[25vh]' : 'w-[100%]',
+        windowWidth! > 740 ? 'w-[100%] h-[45vh]' : 'w-[100%] h-[45vh]',
       )}
     >
       {/* <img
@@ -46,7 +49,7 @@ const CityCard = ({
         width="100%"
         className="object-contain aspect-video"
       /> */}
-      {/* <MapComponent places={places} /> */}
+      <MapComponent places={places} />
       <div className="flex flex-row gap-4 w-[100%] items-center space-between">
         <p className="font-bold w-fit inline">{name}</p>
         {/* <SaveButton city={name} onButtonClick={handleAddRemove}/> */}

@@ -86,6 +86,8 @@ const FeaturedCities = () => {
                   placesToVisit={places}
                   weather_description={city.weather.weather[0].description}
                   // cover={}
+                  latitude={CITIES[index].latitude}
+                  longitude={CITIES[index].longitude}
                   flag={CITIES[index].flag}
                   country={CITIES[index].country}
                 />
@@ -98,4 +100,4 @@ const FeaturedCities = () => {
   );
 };
 
-export default FeaturedCities;
+export default React.memo(FeaturedCities);
