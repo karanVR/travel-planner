@@ -23,6 +23,7 @@ const SavedCitiesPage = () => {
             name={data.name}
             temprature={data.weather?.main?.temp}
             feels_like={data.weather?.main?.feels_like}
+            //@ts-ignore
             placesToVisit={data.places || [] || [{name:''}]}
             weather_description={data.weather?.weather[0]?.description}
           />
