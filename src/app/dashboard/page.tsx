@@ -25,14 +25,6 @@ const Dashboad = () => {
           >
             Discover the vacation of your dreams
           </h2>
-          <p
-            className={cn(
-              'text-zinc',
-              windowWidth! > 740 ? 'text-sm' : 'text-xs',
-            )}
-          >
-            Search low prices on flights, hotels, food and much more...
-          </p>
         </div>
       </div>
       <FeaturedCities />

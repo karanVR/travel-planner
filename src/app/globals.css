@@ -16,6 +16,11 @@ html[data-theme='dark'] {
   color: #ffffff;
 }
 
+.custom-dashed-border {
+  border-width: 4px; 
+  border-image: repeating-linear-gradient(-45deg, #000, #000 4px, transparent 4px, transparent 8px) 1;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

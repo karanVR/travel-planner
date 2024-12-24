@@ -5,7 +5,7 @@ import HeaderRightThemeToggle from '../headerRightThemeProfile';
 const Header = () => {
   return (
     <header className="flex justify-between">
-      <div className="font-bold text-2xl pl-6 pt-4 scale-75">
+      <div className="font-bold text-2xl pt-4 scale-50">
         <TpLogo />
       </div>
       <HeaderRightThemeToggle />
