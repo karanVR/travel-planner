@@ -12,8 +12,8 @@ export interface CityData {
     weather: { description: string }[];
   };
   places: { name: string }[];
-  latitude:number;
-  longitude:number;
+  latitude: number;
+  longitude: number;
 }
 
 interface SavedCitiesContextType {

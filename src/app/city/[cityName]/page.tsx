@@ -32,9 +32,9 @@ const CityDetailsDynamicPage = () => {
   const { addCity, removeCity } = useContext(savedCitiesContext);
   const { savedCities } = useSavedCities();
   const [placesCoordinates, setPlacesCoordinates] = useState<any>({
-      latitude: null,
-      longitude: null,
-    });
+    latitude: null,
+    longitude: null,
+  });
 
   const {
     data: cityData,
@@ -100,7 +100,7 @@ const CityDetailsDynamicPage = () => {
         name: cityData.name,
         weather: weatherData,
         places: places || [],
-        latitude:cityData.latitude,
+        latitude: cityData.latitude,
         longitude: cityData.longitude,
       };
       addCity(cityDetails);

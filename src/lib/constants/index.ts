@@ -6,6 +6,7 @@ export const CITIES = [
     code: 'DEL',
     flag: '🇮🇳',
     country: 'India',
+    textColor: 'white',
   },
   {
     name: 'New York',
@@ -14,6 +15,7 @@ export const CITIES = [
     code: 'NYC',
     flag: '🇺🇸',
     country: 'USA',
+    textColor: 'white',
   },
   {
     name: 'Paris',
@@ -22,6 +24,7 @@ export const CITIES = [
     code: 'PAR',
     flag: '🇫🇷',
     country: 'France',
+    textColor: 'black',
   },
   {
     name: 'Tokyo',
@@ -30,6 +33,7 @@ export const CITIES = [
     code: 'TYO',
     flag: '🇯🇵',
     country: 'Japan',
+    textColor: 'black',
   },
   {
     name: 'Sydney',
@@ -38,6 +42,7 @@ export const CITIES = [
     code: 'SYD',
     flag: '🇦🇺',
     country: 'Australia',
+    textColor: 'black',
   },
   {
     name: 'London',
@@ -46,6 +51,7 @@ export const CITIES = [
     code: 'LON',
     flag: '🇬🇧',
     country: 'United Kingdom',
+    textColor: 'black',
   },
   {
     name: 'Dubai',
@@ -54,6 +60,7 @@ export const CITIES = [
     code: 'DXB',
     flag: '🇦🇪',
     country: 'UAE',
+    textColor: 'black',
   },
   {
     name: 'Cape Town',
@@ -62,5 +69,29 @@ export const CITIES = [
     code: 'CPT',
     flag: '🇿🇦',
     country: 'South Africa',
+    textColor: 'black',
   },
 ];
+
+export const themeColors = {
+  light: [
+    '#FFA07A',
+    '#9370DB',
+    '#B0C4DE',
+    '#D3D3D3',
+    '#FFB6C1',
+    '#98FB98',
+    '#FFDAB9',
+    '#E6E6FA',
+  ],
+  dark: [
+    '#FF7F50',
+    '#7A5C9B',
+    '#8A9BB6',
+    '#A9A9A9',
+    '#FF69B4',
+    '#66CDAA',
+    '#FFB6A0',
+    '#B0A0D9',
+  ],
+};

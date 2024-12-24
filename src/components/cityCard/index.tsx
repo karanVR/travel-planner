@@ -8,8 +8,6 @@ import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import { cn } from '@/lib/utils';
 import { ICityCardProps } from '@/models';
 import React, { useContext } from 'react';
-import { FiBookmark } from 'react-icons/fi';
-import SaveButton from '../addCityButton';
 import MapComponent from '../mapComponent';
 
 const CityCard = ({
@@ -24,6 +22,7 @@ const CityCard = ({
   latitude,
   longitude,
   onCityClick,
+  textColor,
 }: ICityCardProps) => {
   const { width: windowWidth } = useWindowDimensions();
   const { addCity, removeCity } = useContext(savedCitiesContext);
@@ -47,23 +46,11 @@ const CityCard = ({
         'flex flex-col relative gap-2 border rounded-lg p-4 shadow cursor-pointer',
         windowWidth! > 740 ? 'w-[100%] h-[45vh]' : 'w-[100%] h-[45vh]',
       )}
+      style={{ color: textColor && textColor }}
     >
-      {/* <img
-        src={cover}
-        alt={name}
-        width="100%"
-        className="object-contain aspect-video"
-      /> */}
       <MapComponent places={places} />
       <div className="flex flex-row gap-4 w-[100%] items-center space-between">
         <p className="font-bold w-fit inline">{name}</p>
-        {/* <SaveButton city={name} onButtonClick={handleAddRemove}/> */}
-        {/* <div
-          title="Save"
-          className="ml-auto flex rounded-xl px-2 py-1 items-center text-gray-500 gap-2 hover:scale-[1.25] transition-all duration-200 ease-in"
-        >
-          {<FiBookmark size="22px" />}
-        </div> */}
       </div>
       {(country || flag) && (
         <div className="flex space-between font-bold">

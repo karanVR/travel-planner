@@ -10,4 +10,5 @@ export interface ICityCardProps {
   onCityClick?: any;
   latitude?: number;
   longitude?: number;
+  textColor?: string;
 }

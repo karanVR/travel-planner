@@ -18,33 +18,33 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Plan Away - Explore Cities, Weather, and Places Worldwide",
+  title: 'Plan Away - Explore Cities, Weather, and Places Worldwide',
   description:
-    "Discover cities around the world with Plan Away. Check weather updates, explore popular places to visit, and view interactive maps effortlessly.",
-  keywords: "travel app, city weather, places to visit, world city search, city maps, Plan Away",
+    'Discover cities around the world with Plan Away. Check weather updates, explore popular places to visit, and view interactive maps effortlessly.',
+  keywords:
+    'travel app, city weather, places to visit, world city search, city maps, Plan Away',
   openGraph: {
-    title: "Plan Away - Explore Cities, Weather, and Places Worldwide",
+    title: 'Plan Away - Explore Cities, Weather, and Places Worldwide',
     description:
-      "Plan your trips with ease! Search for cities, view weather details, explore top attractions, and navigate through maps.",
-    url: "https://travel-planner-git-main-karan-veer-raghuvanshis-projects.vercel.app/",
-    type: "website",
+      'Plan your trips with ease! Search for cities, view weather details, explore top attractions, and navigate through maps.',
+    url: 'https://travel-planner-git-main-karan-veer-raghuvanshis-projects.vercel.app/',
+    type: 'website',
     images: [
       {
-        url: "/assets/logo.png",
+        url: '/assets/logo.png',
         width: 1200,
         height: 630,
-        alt: "Plan Away travel app banner",
+        alt: 'Plan Away travel app banner',
       },
     ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Plan Away - Explore Cities, Weather, and Places Worldwide",
+    card: 'summary_large_image',
+    title: 'Plan Away - Explore Cities, Weather, and Places Worldwide',
     description:
-      "Your ultimate travel companion! Discover cities, check weather, and explore popular places worldwide.",
+      'Your ultimate travel companion! Discover cities, check weather, and explore popular places worldwide.',
   },
 };
-
 
 export default function RootLayout({
   children,
@@ -52,26 +52,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Plan Away",
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Plan Away',
     description:
-      "Discover cities, check weather updates, explore popular places to visit, and view interactive maps with Plan Away.",
-    url: "https://travel-planner-git-main-karan-veer-raghuvanshis-projects.vercel.app/",
-    image: "/assets/logo.png",
-    applicationCategory: "Travel",
-    keywords: "travel app, city weather, places to visit, world city search, city maps",
-    operatingSystem: "Web",
+      'Discover cities, check weather updates, explore popular places to visit, and view interactive maps with Plan Away.',
+    url: 'https://travel-planner-git-main-karan-veer-raghuvanshis-projects.vercel.app/',
+    image: '/assets/logo.png',
+    applicationCategory: 'Travel',
+    keywords:
+      'travel app, city weather, places to visit, world city search, city maps',
+    operatingSystem: 'Web',
     potentialAction: {
-      "@type": "SearchAction",
-      target: "https://travel-planner-git-main-karan-veer-raghuvanshis-projects.vercel.app/city?city={city_name}",
-      query: "{city_name}",
+      '@type': 'SearchAction',
+      target:
+        'https://travel-planner-git-main-karan-veer-raghuvanshis-projects.vercel.app/city?city={city_name}',
+      query: '{city_name}',
     },
   };
 
   return (
     <html lang="en">
-       <Head>
+      <Head>
         <link rel="icon" href="/favicon.ico" />
         <script
           type="application/ld+json"
@@ -84,7 +86,7 @@ export default function RootLayout({
             <ThemeProvider>
               <SavedCitiesProvider>
                 <ClientProviders>
-                  <div className="flex flex-col w-full h-full min-h-screen">
+                  <div className="flex flex-col w-full h-full min-h-screen py-2">
                     <Header />
                     <main>
                       <SignedOut>

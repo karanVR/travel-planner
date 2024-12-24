@@ -14,6 +14,7 @@ import FeaturedCities from '@/components/featuredCities';
 import { cn } from '@/lib/utils';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import dynamic from 'next/dynamic';
+import CardSkeleton from '@/components/cardSkeleton';
 
 const DynamicLoader = dynamic(() => import('@/components/loader'), {
   ssr: false,
@@ -95,18 +96,18 @@ const CityPage = () => {
       </div>
 
       {isLoading ? (
-        <DynamicLoader />
+        <CardSkeleton />
       ) : error instanceof Error ? (
-        <p className="text-red-500">Error: {error.message}</p>
+        <p className="text-red-500">Error: {error?.message}</p>
       ) : data ? (
         <div className={cn('mb-4', windowWidth! > 740 ? 'max-w-[25vw] ' : '')}>
           <CityCard
-            key={data.name}
-            name={data.name}
-            temprature={data.weather?.main?.temp}
-            feels_like={data.weather?.main?.feels_like}
-            placesToVisit={data.places || []}
-            weather_description={data.weather?.weather[0]?.description}
+            key={data?.name}
+            name={data?.name as any}
+            temprature={data?.weather?.main?.temp}
+            feels_like={data?.weather?.main?.feels_like}
+            placesToVisit={data?.places || []}
+            weather_description={data?.weather?.weather[0]?.description}
             latitude={placesCoordinates?.latitude}
             longitude={placesCoordinates?.longitude}
           />
