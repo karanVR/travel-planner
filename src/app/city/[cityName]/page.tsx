@@ -119,6 +119,8 @@ const CityDetailsDynamicPage = () => {
             ? 'bg-gradient-to-r from-red-400 to-pink-600 text-transparent bg-clip-text'
             : 'bg-gradient-to-r from-red-500 to-purple-700 text-transparent bg-clip-text',
         )}
+        role="heading"
+        aria-level={1}
       >
         City Details
       </h1>
@@ -126,8 +128,17 @@ const CityDetailsDynamicPage = () => {
         <div className="flex flex-col gap-2">
           <div className="flex space-between w-[100%]">
             {' '}
-            <h2 className="text-2xl font-bold">{cityData.name}</h2>
-            <SaveButton city={cityData.name} onButtonClick={handleSaveCity} />
+            <h2 className="text-2xl font-bold" role="heading" aria-level={2}>
+              {cityData.name}
+            </h2>
+            <SaveButton
+              city={cityData.name}
+              onButtonClick={handleSaveCity}
+              aria-label={isCitySaved ? 'Remove from saved cities' : 'Add to saved cities'}
+              //@ts-ignore
+              role={"button" as any}
+              tabIndex={0}
+            />
           </div>
           <p className="font-bold text-lg">
             {countryData.name.common}
@@ -144,12 +155,16 @@ const CityDetailsDynamicPage = () => {
 
       {isCityLoading && <DynamicLoader />}
       {isCityError && (
-        <p className="text-red-500">Error: {cityError.message}</p>
+        <p className="text-red-500" role="alert" aria-live="assertive">
+          Error: {cityError.message}
+        </p>
       )}
 
       {isCountryLoading && <DynamicLoader />}
       {isCountryError && (
-        <p className="text-red-500">Error: {countryError.message}</p>
+        <p className="text-red-500" role="alert" aria-live="assertive">
+          Error: {countryError.message}
+        </p>
       )}
 
       <p className="text-xl font-bold mt-4">
@@ -164,12 +179,16 @@ const CityDetailsDynamicPage = () => {
 
       {isPlacesLoading && <DynamicLoader />}
       {isPlacesError && (
-        <p className="text-red-500">Error: {placesError.message}</p>
+        <p className="text-red-500" role="alert" aria-live="assertive">
+          Error: {placesError.message}
+        </p>
       )}
 
       {places && (
         <div className="border rounded p-2 my-4">
-          <h3 className="text-xl font-bold">Places to Visit</h3>
+          <h3 className="text-xl font-bold" role="heading" aria-level={3}>
+            Places to Visit
+          </h3>
           <MapComponent places={places} />
         </div>
       )}
@@ -181,6 +200,9 @@ const CityDetailsDynamicPage = () => {
               appTheme === 'light' ? '' : 'text-black',
             )}
             key={index}
+            role="button"
+            tabIndex={0}
+            aria-label={`View details for ${place.name}`}
           >
             {place.name}
           </div>

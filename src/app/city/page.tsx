@@ -14,11 +14,6 @@ import { cn } from '@/lib/utils';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import dynamic from 'next/dynamic';
 import CardSkeleton from '@/components/cardSkeleton';
-
-const DynamicLoader = dynamic(() => import('@/components/loader'), {
-  ssr: false,
-});
-
 const FeaturedCities = dynamic(() => import('@/components/featuredCities'), { ssr: false });
 
 const CityPage = () => {
@@ -69,6 +64,8 @@ const CityPage = () => {
   return (
     <div
       className={`p-4 ${appTheme === 'light' ? 'text-black' : 'text-white'}`}
+      role="main"
+      aria-label="City search and featured cities page"
     >
       <h1
         className={cn(
@@ -77,6 +74,7 @@ const CityPage = () => {
             ? 'bg-gradient-to-r from-red-400 to-pink-600 text-transparent bg-clip-text'
             : 'bg-gradient-to-r from-red-500 to-purple-700 text-transparent bg-clip-text',
         )}
+        aria-label="Search a travel destination"
       >
         Search a travel destination
       </h1>
@@ -85,13 +83,21 @@ const CityPage = () => {
           'mb-6 flex gap-2',
           windowWidth! > 740 ? 'flex-row' : 'flex-col',
         )}
+        role="search"
+        aria-label="Search section"
       >
+        <label htmlFor="city-search-input" className="sr-only">
+          Enter city name
+        </label>
         <input
+          id="city-search-input"
           type="text"
           value={searchTerm}
           onChange={handleSearch}
           placeholder="Enter city name"
           className="border rounded px-4 py-2 w-full text-black"
+          aria-required="true"
+          aria-label="City name search input"
         />
         <button
           className={cn(
@@ -99,19 +105,25 @@ const CityPage = () => {
             windowWidth! > 740 ? 'w-fit' : 'w-[100%]',
           )}
           onClick={handleSearchSubmit}
+          aria-label="Search button"
         >
           Search
         </button>
       </div>
 
       {isLoading ? (
-        <CardSkeleton />
+        <CardSkeleton aria-label="Loading city data" />
       ) : error instanceof Error ? (
-        <p className="text-red-500">Error: {error?.message}</p>
+        <p className="text-red-500" role="alert">
+          Error: {error?.message}
+        </p>
       ) : data ? (
         <div
           onClick={handleCardClick}
           className={cn('mb-4', windowWidth! > 740 ? 'max-w-[25vw] ' : '')}
+          role="button"
+          aria-label={`View details for ${data?.name}`}
+          tabIndex={0}
         >
           <CityCard
             key={data?.name}
@@ -127,7 +139,7 @@ const CityPage = () => {
       ) : (
         cityQuery !== '' && <p>No city searched yet.</p>
       )}
-      <p className="text-center text-zinc-500 ">
+      <p className="text-center text-zinc-500" aria-label="Featured cities prompt">
         Or select from below featured cities
       </p>
       <FeaturedCities />
