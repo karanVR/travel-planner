@@ -13,10 +13,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import CardSkeleton from '../cardSkeleton';
 
-const DynamicLoader = dynamic(() => import('@/components/loader'), {
-  ssr: false,
-});
-
 const FeaturedCities = () => {
   const { width: windowWidth } = useWindowDimensions();
   const router = useRouter();
@@ -114,9 +110,18 @@ const FeaturedCities = () => {
           {cityCards}
         </div>
       ) : (
-        <div className="flex gap-4 flex-wrap">
+        <div className="flex gap-4 flex-wrap w-[100%]">
           {[...Array(8)].map((_) => {
-            return <CardSkeleton />;
+            return (
+              <div
+                className={cn(
+                  'flex flex-wrap',
+                  windowWidth! > 740 ? 'w-[25vw]' : 'w-[100%]',
+                )}
+              >
+                <CardSkeleton />
+              </div>
+            );
           })}
         </div>
       )}

@@ -10,7 +10,6 @@ import {
 } from '@/lib/api-utils/api';
 import CityCard from '@/components/cityCard';
 import { themeContext } from '@/hooks/useThemeContext.hook';
-import FeaturedCities from '@/components/featuredCities';
 import { cn } from '@/lib/utils';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import dynamic from 'next/dynamic';
@@ -19,6 +18,8 @@ import CardSkeleton from '@/components/cardSkeleton';
 const DynamicLoader = dynamic(() => import('@/components/loader'), {
   ssr: false,
 });
+
+const FeaturedCities = dynamic(() => import('@/components/featuredCities'), { ssr: false });
 
 const CityPage = () => {
   const [placesCoordinates, setPlacesCoordinates] = useState<any>({
@@ -79,7 +80,12 @@ const CityPage = () => {
       >
         Search a travel destination
       </h1>
-      <div className="mb-6 flex gap-2">
+      <div
+        className={cn(
+          'mb-6 flex gap-2',
+          windowWidth! > 740 ? 'flex-row' : 'flex-col',
+        )}
+      >
         <input
           type="text"
           value={searchTerm}
@@ -88,8 +94,11 @@ const CityPage = () => {
           className="border rounded px-4 py-2 w-full text-black"
         />
         <button
+          className={cn(
+            'animated-btn px-2 py-2 mb-4 bg-red-400 m-auto rounded-md text-sm',
+            windowWidth! > 740 ? 'w-fit' : 'w-[100%]',
+          )}
           onClick={handleSearchSubmit}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
         >
           Search
         </button>
@@ -100,7 +109,10 @@ const CityPage = () => {
       ) : error instanceof Error ? (
         <p className="text-red-500">Error: {error?.message}</p>
       ) : data ? (
-        <div className={cn('mb-4', windowWidth! > 740 ? 'max-w-[25vw] ' : '')}>
+        <div
+          onClick={handleCardClick}
+          className={cn('mb-4', windowWidth! > 740 ? 'max-w-[25vw] ' : '')}
+        >
           <CityCard
             key={data?.name}
             name={data?.name as any}
@@ -111,15 +123,9 @@ const CityPage = () => {
             latitude={placesCoordinates?.latitude}
             longitude={placesCoordinates?.longitude}
           />
-          <button
-            onClick={handleCardClick}
-            className="mt-4 bg-green-500 text-white px-4 py-2 rounded"
-          >
-            View Details
-          </button>
         </div>
       ) : (
-        searchTerm !== '' && <p>No city searched yet.</p>
+        cityQuery !== '' && <p>No city searched yet.</p>
       )}
       <p className="text-center text-zinc-500 ">
         Or select from below featured cities
