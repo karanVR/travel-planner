@@ -1,10 +1,17 @@
 import { useSavedCities } from '@/hooks/useSavedCitiesContext.hook'; // Adjust the import path as per your project
 
-const SaveButton = ({ city, onButtonClick }: { city: string, onButtonClick?: () => void; }) => {
+const SaveButton = ({
+  city,
+  onButtonClick,
+}: {
+  city: string;
+  onButtonClick?: () => void;
+}) => {
   const { savedCities } = useSavedCities();
 
-  const isCitySaved = savedCities.some((savedCity:any) => savedCity.name === city);
-
+  const isCitySaved = savedCities.some(
+    (savedCity: any) => savedCity.name === city,
+  );
 
   return (
     <button

@@ -1,6 +1,9 @@
 'use client';
 
-import { savedCitiesContext, useSavedCities } from '@/hooks/useSavedCitiesContext.hook';
+import {
+  savedCitiesContext,
+  useSavedCities,
+} from '@/hooks/useSavedCitiesContext.hook';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import { cn } from '@/lib/utils';
 import { ICityCardProps } from '@/models';
@@ -23,19 +26,21 @@ const CityCard = ({
   onCityClick,
 }: ICityCardProps) => {
   const { width: windowWidth } = useWindowDimensions();
-    const { addCity, removeCity } = useContext(savedCitiesContext);
-    const { savedCities } = useSavedCities();
-    const isCitySaved = savedCities.some((savedCity: any) => savedCity.name === name!);
-      const handleAddRemove = () => {
-        if (!isCitySaved) {
-          addCity(name as any);
-        }
-        if(isCitySaved){
-          removeCity(name)
-        }
-      };
-      console.log(latitude, longitude, name, 'latlong')
-      const places:any = [{latitude: latitude, longitude:longitude}]
+  const { addCity, removeCity } = useContext(savedCitiesContext);
+  const { savedCities } = useSavedCities();
+  const isCitySaved = savedCities.some(
+    (savedCity: any) => savedCity.name === name!,
+  );
+  const handleAddRemove = () => {
+    if (!isCitySaved) {
+      addCity(name as any);
+    }
+    if (isCitySaved) {
+      removeCity(name);
+    }
+  };
+  console.log(latitude, longitude, name, 'latlong');
+  const places: any = [{ latitude: latitude, longitude: longitude }];
   return (
     <div
       className={cn(

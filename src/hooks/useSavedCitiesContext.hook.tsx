@@ -12,6 +12,8 @@ export interface CityData {
     weather: { description: string }[];
   };
   places: { name: string }[];
+  latitude:number;
+  longitude:number;
 }
 
 interface SavedCitiesContextType {
@@ -48,7 +50,7 @@ export const SavedCitiesProvider = ({
     setSavedCities((prev) => {
       if (
         prev.some(
-          (savedCity:any) =>
+          (savedCity: any) =>
             savedCity!.name!.toLowerCase() === city!.name!.toLowerCase(),
         )
       ) {
@@ -61,8 +63,7 @@ export const SavedCitiesProvider = ({
   const removeCity = (cityName: string) => {
     setSavedCities((prev) =>
       prev.filter(
-        (savedCity) =>
-          savedCity.name.toLowerCase() !== cityName.toLowerCase(),
+        (savedCity) => savedCity.name.toLowerCase() !== cityName.toLowerCase(),
       ),
     );
   };

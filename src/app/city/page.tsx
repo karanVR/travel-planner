@@ -20,13 +20,15 @@ const DynamicLoader = dynamic(() => import('@/components/loader'), {
 });
 
 const CityPage = () => {
-  const [placesCoordinates, setPlacesCoordinates] = useState<any>({ latitude: null, longitude: null });
+  const [placesCoordinates, setPlacesCoordinates] = useState<any>({
+    latitude: null,
+    longitude: null,
+  });
   const { appTheme } = useContext(themeContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [cityQuery, setCityQuery] = useState('');
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
-
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['cityData', cityQuery],
@@ -60,8 +62,7 @@ const CityPage = () => {
     router.push(`/city/${encodeURIComponent(cityQuery)}`);
   };
 
-  console.log(placesCoordinates,'coord')
-
+  console.log(placesCoordinates, 'coord');
 
   return (
     <div

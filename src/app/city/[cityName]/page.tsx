@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -31,8 +31,10 @@ const CityDetailsDynamicPage = () => {
   const { appTheme } = useContext(themeContext);
   const { addCity, removeCity } = useContext(savedCitiesContext);
   const { savedCities } = useSavedCities();
-
-
+  const [placesCoordinates, setPlacesCoordinates] = useState<any>({
+      latitude: null,
+      longitude: null,
+    });
 
   const {
     data: cityData,
@@ -88,23 +90,25 @@ const CityDetailsDynamicPage = () => {
     name: place?.name,
   }));
 
-  const isCitySaved = savedCities.some((savedCity: any) => savedCity.name === cityData!?.name);
+  const isCitySaved = savedCities.some(
+    (savedCity: any) => savedCity.name === cityData!?.name,
+  );
 
   const handleSaveCity = () => {
-    if (!isCitySaved&&cityData && weatherData) {
+    if (!isCitySaved && cityData && weatherData) {
       const cityDetails: CityData = {
         name: cityData.name,
         weather: weatherData,
         places: places || [],
+        latitude:cityData.latitude,
+        longitude: cityData.longitude,
       };
       addCity(cityDetails);
     }
-    if(isCitySaved){
-      removeCity(cityData.name)
+    if (isCitySaved) {
+      removeCity(cityData.name);
     }
   };
-
- 
 
   return (
     <div className="p-4">
@@ -123,7 +127,7 @@ const CityDetailsDynamicPage = () => {
           <div className="flex space-between w-[100%]">
             {' '}
             <h2 className="text-2xl font-bold">{cityData.name}</h2>
-           <SaveButton city={cityData.name} onButtonClick={handleSaveCity}/>
+            <SaveButton city={cityData.name} onButtonClick={handleSaveCity} />
           </div>
           <p className="font-bold text-lg">
             {countryData.name.common}

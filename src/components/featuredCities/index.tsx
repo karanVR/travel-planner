@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { useContext, useMemo, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import useWindowDimensions from '../../hooks/useWindowDimensions.hook';
 import { CITIES } from '@/lib/constants';
@@ -11,6 +11,7 @@ import { themeContext } from '@/hooks/useThemeContext.hook';
 import CityCard from '@/components/cityCard';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+
 const DynamicLoader = dynamic(() => import('@/components/loader'), {
   ssr: false,
 });
@@ -35,12 +36,48 @@ const FeaturedCities = () => {
     staleTime: 1000 * 60 * 10,
   });
 
+  const cityCards = useMemo(() => {
+    if (!data) return [];
+    return data.map((city, index) => {
+      const {
+        name,
+        weather: {
+          main: { temp, feels_like },
+        },
+        places,
+      } = city;
+
+      return (
+        <div
+          key={uuidv4()}
+          onClick={() => handleCityClick(name)}
+          className={cn(
+            'flex flex-wrap cursor-pointer w-fit p-0 m-0',
+            windowWidth! > 740 ? 'w-[25vw]' : 'w-[90%]',
+          )}
+        >
+          <CityCard
+            name={name}
+            temprature={temp}
+            feels_like={feels_like}
+            placesToVisit={places}
+            weather_description={city.weather.weather[0].description}
+            latitude={CITIES[index].latitude}
+            longitude={CITIES[index].longitude}
+            flag={CITIES[index].flag}
+            country={CITIES[index].country}
+          />
+        </div>
+      );
+    });
+  }, [data, windowWidth]);
+
+  const handleCityClick = useCallback((cityName: string) => {
+    router.push(`/city/${encodeURIComponent(cityName)}`);
+  }, []);
+
   if (isLoading) return <DynamicLoader />;
   if (error instanceof Error) return <p>Error: {error.message}</p>;
-
-  const handleCityClick = (cityName: string) => {
-    router.push(`/city/${encodeURIComponent(cityName)}`);
-  };
 
   return (
     <div className="w-[100%] flex flex-col items-center justify-center">
@@ -62,39 +99,7 @@ const FeaturedCities = () => {
           windowWidth! < 740 ? 'flex-col' : 'flex-row',
         )}
       >
-        {data!?.map((city: any, index: number) => {
-          const {
-            name,
-            weather: {
-              main: { temp, feels_like },
-            },
-            places,
-          } = city;
-          return (
-            <React.Fragment key={uuidv4()}>
-              <div
-                onClick={() => handleCityClick(name)}
-                className={cn(
-                  'flex flex-wrap cursor-pointer w-fit p-0 m-0',
-                  windowWidth! > 740 ? 'w-[25vw]' : 'w-[90%]',
-                )}
-              >
-                <CityCard
-                  name={name}
-                  temprature={temp}
-                  feels_like={feels_like}
-                  placesToVisit={places}
-                  weather_description={city.weather.weather[0].description}
-                  // cover={}
-                  latitude={CITIES[index].latitude}
-                  longitude={CITIES[index].longitude}
-                  flag={CITIES[index].flag}
-                  country={CITIES[index].country}
-                />
-              </div>
-            </React.Fragment>
-          );
-        })}
+        {cityCards}
       </div>
     </div>
   );
