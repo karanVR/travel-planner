@@ -14,10 +14,8 @@ const config: Config = {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
   },
 
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!@testing-library)'], 
-  testMatch: [
-    '**/?(*.)+(test).[tj]s?(x)',
-  ],
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!@testing-library)'],
+  testMatch: ['**/?(*.)+(test).[tj]s?(x)'],
 };
 
 export default config;
