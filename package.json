@@ -31,6 +31,7 @@
     "uuid": "^11.0.3"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
