@@ -34,7 +34,7 @@ const CityCard = ({
       addCity(name as any);
     }
     if (isCitySaved) {
-      removeCity(name);
+      removeCity(name as any);
     }
   };
   const places: any = [{ latitude: latitude, longitude: longitude }];
