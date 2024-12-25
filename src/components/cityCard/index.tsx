@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { ICityCardProps } from '@/models';
 import React, { useContext } from 'react';
 import MapComponent from '../mapComponent';
+import { v4 as uuidv4 } from 'uuid';
 
 const CityCard = ({
   name,
@@ -17,11 +18,9 @@ const CityCard = ({
   temprature,
   feels_like,
   weather_description,
-  cover,
   flag,
   latitude,
   longitude,
-  onCityClick,
   textColor,
 }: ICityCardProps) => {
   const { width: windowWidth } = useWindowDimensions();
@@ -38,7 +37,6 @@ const CityCard = ({
       removeCity(name);
     }
   };
-  console.log(latitude, longitude, name, 'latlong');
   const places: any = [{ latitude: latitude, longitude: longitude }];
   return (
     <div
@@ -64,9 +62,9 @@ const CityCard = ({
       </div>
       <div className="flex flex-wrap gap-2 mb-4 space-between text-sm">
         <p className="font-semibold">Attractions:</p>
-        {placesToVisit?.slice(0, 3).map((place: any, i: number) => (
+        {placesToVisit?.slice(0, 3).map((place: any) => (
           <div
-            key={place}
+            key={uuidv4()}
             className="text-xs rounded-lg border p-1 truncate w-fit cursor-pointer"
             title={place.name}
           >

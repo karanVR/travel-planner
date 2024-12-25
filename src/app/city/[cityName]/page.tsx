@@ -134,9 +134,11 @@ const CityDetailsDynamicPage = () => {
             <SaveButton
               city={cityData.name}
               onButtonClick={handleSaveCity}
-              aria-label={isCitySaved ? 'Remove from saved cities' : 'Add to saved cities'}
+              aria-label={
+                isCitySaved ? 'Remove from saved cities' : 'Add to saved cities'
+              }
               //@ts-ignore
-              role={"button" as any}
+              role={'button' as any}
               tabIndex={0}
             />
           </div>

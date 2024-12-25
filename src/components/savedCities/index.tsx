@@ -2,18 +2,50 @@
 
 import React from 'react';
 import CityCard from '@/components/cityCard';
-import router from 'next/router';
 import { useSavedCities } from '@/hooks/useSavedCitiesContext.hook';
+import { usePathname, useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
+import { useTheme } from '@/hooks/useThemeContext.hook';
 
 const SavedCitiesPage = () => {
   const { savedCities } = useSavedCities();
+  const router = useRouter();
+  const { appTheme } = useTheme();
+  const pathname = usePathname();
   const handleCardClick = (cityName: string) => {
     router.push(`/city/${encodeURIComponent(cityName)}`);
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-4xl font-bold pb-8">Saved Cities</h1>
+    <div
+      className={cn(
+        'p-4 text-center',
+        pathname === '/dashboard' && savedCities.length === 0 ? 'hidden' : '',
+      )}
+    >
+      {pathname === '/saved-cities' ? (
+        <h1
+          className={cn(
+            'text-3xl font-bold pb-8',
+            appTheme === 'light'
+              ? 'bg-gradient-to-r from-green-400 to-green-600 text-transparent bg-clip-text'
+              : 'bg-gradient-to-r from-green-300 to-green-500 text-transparent bg-clip-text',
+          )}
+        >
+          Saved Cities
+        </h1>
+      ) : (
+        <h1
+          className={cn(
+            'text-xl font-bold pb-8',
+            appTheme === 'light'
+              ? 'bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text'
+              : 'bg-gradient-to-r from-blue-300 to-blue-500 text-transparent bg-clip-text',
+          )}
+        >
+          Recent activity
+        </h1>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {savedCities.length > 0 ? (
           savedCities.map((data) => (

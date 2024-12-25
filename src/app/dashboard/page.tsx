@@ -5,6 +5,7 @@ import useWindowDimensions from '../../hooks/useWindowDimensions.hook';
 import { cn } from '@/lib/utils';
 import { themeContext } from '@/hooks/useThemeContext.hook';
 import FeaturedCities from '@/components/featuredCities';
+import SavedCitiesPage from '@/components/savedCities';
 const Dashboad = () => {
   const { width: windowWidth } = useWindowDimensions();
   const { appTheme } = useContext(themeContext);
@@ -27,6 +28,7 @@ const Dashboad = () => {
           </h2>
         </div>
       </div>
+      <SavedCitiesPage />
       <FeaturedCities />
     </div>
   );

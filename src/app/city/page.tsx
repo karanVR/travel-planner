@@ -14,7 +14,9 @@ import { cn } from '@/lib/utils';
 import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import dynamic from 'next/dynamic';
 import CardSkeleton from '@/components/cardSkeleton';
-const FeaturedCities = dynamic(() => import('@/components/featuredCities'), { ssr: false });
+const FeaturedCities = dynamic(() => import('@/components/featuredCities'), {
+  ssr: false,
+});
 
 const CityPage = () => {
   const [placesCoordinates, setPlacesCoordinates] = useState<any>({
@@ -58,8 +60,6 @@ const CityPage = () => {
   const handleCardClick = () => {
     router.push(`/city/${encodeURIComponent(cityQuery)}`);
   };
-
-  console.log(placesCoordinates, 'coord');
 
   return (
     <div
@@ -139,7 +139,10 @@ const CityPage = () => {
       ) : (
         cityQuery !== '' && <p>No city searched yet.</p>
       )}
-      <p className="text-center text-zinc-500" aria-label="Featured cities prompt">
+      <p
+        className="text-center text-zinc-500"
+        aria-label="Featured cities prompt"
+      >
         Or select from below featured cities
       </p>
       <FeaturedCities />

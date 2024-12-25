@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils';
 import { useTheme } from '@/hooks/useThemeContext.hook';
 import CityCard from '@/components/cityCard';
 import { usePathname, useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
 import CardSkeleton from '../cardSkeleton';
 
 const FeaturedCities = () => {
@@ -114,6 +113,7 @@ const FeaturedCities = () => {
           {[...Array(8)].map((_) => {
             return (
               <div
+                key={uuidv4()}
                 className={cn(
                   'flex flex-wrap',
                   windowWidth! > 740 ? 'w-[25vw]' : 'w-[100%]',
