@@ -6,12 +6,13 @@ import { usePathname } from 'next/navigation';
 import React, { useContext } from 'react';
 import { VscLayoutMenubar } from 'react-icons/vsc';
 import { cn } from '../../../lib/utils';
-import { themeContext } from '@/hooks/useThemeContext.hook';
+import { themeContext, useTheme } from '@/hooks/useThemeContext.hook';
 import { TbUserHexagon } from 'react-icons/tb';
 import { FaWpexplorer } from 'react-icons/fa6';
 import { FaPlane } from 'react-icons/fa';
 import { BiSolidCity } from 'react-icons/bi';
 import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 
 const montserrat = Montserrat({
   weight: '600',
@@ -52,8 +53,12 @@ const routes = [
 ];
 
 const Sidebar = () => {
+  const { appTheme } = useTheme()
   const pathname = usePathname();
-  const { appTheme } = useContext(themeContext);
+
+
+     
+    
   return (
     <div
       className={cn(

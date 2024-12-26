@@ -9,6 +9,12 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    turbo: false, 
+  },
+  webpack: (config:any) => {
+    return config;
+  },
 };
 
 export default nextConfig;
