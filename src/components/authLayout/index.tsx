@@ -1,5 +1,3 @@
-// File: src/components/AuthLayout.tsx
-
 import React from 'react';
 import { SignedIn, SignedOut, SignIn } from '@clerk/nextjs';
 import Sidebar from '@/components/sidebar';
