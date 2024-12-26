@@ -52,7 +52,7 @@ const routes = [
   },
 ];
 
-const Sidebar = ({onItemClick}:{onItemClick:any}) => {
+const Sidebar = ({onItemClick}:{onItemClick?:any}) => {
   const { appTheme } = useTheme();
   const pathname = usePathname();
 
