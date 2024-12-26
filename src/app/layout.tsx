@@ -1,15 +1,14 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 import './globals.css';
-import { ClerkProvider, SignIn, SignedIn, SignedOut } from '@clerk/nextjs';
-import Sidebar from '../components/sidebar';
-import Navbar from '../components/navbar';
+import { ClerkProvider } from '@clerk/nextjs';
 import { SavedCitiesProvider } from '@/hooks/useSavedCitiesContext.hook';
 import { ThemeProvider } from '@/hooks/useThemeContext.hook';
 import ClientProviders from '@/ClientProviders';
 import ErrorBoundary from '@/components/errorBoundary';
 import Header from '@/components/header';
 import Head from 'next/head';
+import AuthLayout from '@/components/authLayout';
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -99,25 +98,7 @@ export default function RootLayout({
                   <div className="flex flex-col w-full h-full min-h-screen py-2">
                     <Header />
                     <main>
-                      <SignedOut>
-                        <div className="flex w-full h-screen items-center justify-center">
-                          <SignIn
-                            routing="hash"
-                            forceRedirectUrl="/dashboard"
-                          />
-                        </div>
-                      </SignedOut>
-                      <SignedIn>
-                        <div className="h-full relative">
-                          <div className="hidden md:flex md:flex-col md:w-72 md:fixed md:inset-y-0 z-[80] bg-gray-900">
-                            <Sidebar />
-                          </div>
-                          <div className="relative w-full md:pl-72">
-                            <Navbar />
-                            {children}
-                          </div>
-                        </div>
-                      </SignedIn>
+                      <AuthLayout>{children}</AuthLayout>
                     </main>
                   </div>
                 </ClientProviders>
