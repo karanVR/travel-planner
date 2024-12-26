@@ -12,7 +12,7 @@ const ThemeToggle = () => {
   const toggleTheme = () => {
     const newTheme = appTheme === 'light' ? 'dark' : 'light';
     setAppTheme(newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark'); // Toggle dark class on root
+    document.documentElement.classList.toggle('dark', newTheme === 'dark'); 
   };
 
   return (

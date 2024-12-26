@@ -12,3 +12,12 @@ export interface ICityCardProps {
   longitude?: number;
   textColor?: string;
 }
+
+export interface Place {
+  latitude: number;
+  longitude: number;
+  name: string;
+}
+export interface MapComponentProps {
+  places: Place[];
+}

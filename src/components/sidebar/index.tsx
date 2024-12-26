@@ -52,7 +52,7 @@ const routes = [
   },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({onItemClick}:{onItemClick:any}) => {
   const { appTheme } = useTheme();
   const pathname = usePathname();
 
@@ -73,6 +73,7 @@ const Sidebar = () => {
         <div className="space-y-1">
           {routes.map((route) => (
             <Link
+            onClick={onItemClick}
               href={route.href}
               key={uuidv4()}
               className={cn(

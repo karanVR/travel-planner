@@ -8,8 +8,11 @@ import useWindowDimensions from '@/hooks/useWindowDimensions.hook';
 import { cn } from '@/lib/utils';
 import { ICityCardProps } from '@/models';
 import React, { useContext } from 'react';
-import MapComponent from '../mapComponent';
 import { v4 as uuidv4 } from 'uuid';
+import dynamic from 'next/dynamic';
+const MapComponent = dynamic(() => import('@/components/mapComponent'), {
+  ssr: false,
+});
 
 const CityCard = ({
   name,
