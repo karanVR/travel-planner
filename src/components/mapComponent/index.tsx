@@ -12,11 +12,12 @@ interface Place {
   name: string;
 }
 
-
-const areEqual = (prevProps: MapComponentProps, nextProps: MapComponentProps) => {
+const areEqual = (
+  prevProps: MapComponentProps,
+  nextProps: MapComponentProps,
+) => {
   return JSON.stringify(prevProps.places) === JSON.stringify(nextProps.places);
 };
-
 
 interface MapComponentProps {
   places: Place[];
@@ -33,11 +34,18 @@ const MapComponent: React.FC<MapComponentProps> = ({ places }) => {
   };
 
   if (!API_KEY) {
-    return <div><DynamicLoader /></div>;
+    return (
+      <div>
+        <DynamicLoader />
+      </div>
+    );
   }
 
   return (
-    <LoadScript googleMapsApiKey={API_KEY} loadingElement={ <Skeleton className="h-[61%] w-[100%] rounded-xl" />}>
+    <LoadScript
+      googleMapsApiKey={API_KEY}
+      loadingElement={<Skeleton className="h-[61%] w-[100%] rounded-xl" />}
+    >
       <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={14}>
         {places.map((place, index) => (
           <Marker

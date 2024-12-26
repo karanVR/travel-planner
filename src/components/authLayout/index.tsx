@@ -2,7 +2,6 @@ import { SignedIn, SignedOut, SignIn } from '@clerk/nextjs';
 import Sidebar from '../sidebar';
 import Navbar from '../navbar';
 
-
 const AuthLayout = ({ children }: { children: React.ReactNode }) => (
   <>
     <SignedOut>
