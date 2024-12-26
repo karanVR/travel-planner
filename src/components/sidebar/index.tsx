@@ -53,12 +53,9 @@ const routes = [
 ];
 
 const Sidebar = () => {
-  const { appTheme } = useTheme()
+  const { appTheme } = useTheme();
   const pathname = usePathname();
 
-
-     
-    
   return (
     <div
       className={cn(

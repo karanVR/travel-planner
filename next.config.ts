@@ -1,7 +1,6 @@
 import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {
-};
+const nextConfig: NextConfig = {};
 
 module.exports = {
   reactStrictMode: true,
@@ -9,9 +8,9 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    turbo: false, 
+    turbo: false,
   },
-  webpack: (config:any) => {
+  webpack: (config: any) => {
     return config;
   },
 };
