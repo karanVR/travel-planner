@@ -28,7 +28,7 @@ const Dashboad = () => {
           </h2>
         </div>
       </div>
-      <SavedCitiesPage />
+      {/* <SavedCitiesPage /> */}
       <FeaturedCities />
     </div>
   );
