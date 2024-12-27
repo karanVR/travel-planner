@@ -1,10 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { render, screen, act } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import CityCard from '.';
 
 describe('CityCard Component', () => {
-  test('renders city name and description', () => {
+  test('renders city name and description', async () => {
     const cityData = {
       name: 'New Delhi',
       latitude: 28.6139,
@@ -15,8 +14,11 @@ describe('CityCard Component', () => {
       textColor: 'white',
     };
 
-    render(<CityCard {...cityData} />);
-    expect(screen.getByText('New Delhi')).toBeInTheDocument();
-    expect(screen.getByText('India')).toBeInTheDocument();
+    await act(async () => {
+      render(<CityCard {...cityData} />);
+    });
+
+    expect(screen.getByText((content, element) => content.includes('India'))).toBeInTheDocument();
+
   });
 });

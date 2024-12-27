@@ -1,7 +1,6 @@
 'use client';
 
 import { createContext, useState, useContext, useEffect } from 'react';
-
 export interface CityData {
   name: string;
   weather: {

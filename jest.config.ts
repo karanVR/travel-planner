@@ -4,16 +4,14 @@ const config: Config = {
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }],
     '^.+\\.(js|jsx)$': 'babel-jest',
   },
-
   moduleNameMapper: {
     '\\.(css|scss|sass)$': 'identity-obj-proxy',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
-
   transformIgnorePatterns: ['<rootDir>/node_modules/(?!@testing-library)'],
   testMatch: ['**/?(*.)+(test).[tj]s?(x)'],
 };

@@ -127,7 +127,7 @@ const CityPage = () => {
         >
           <CityCard
             key={data?.name}
-            name={data?.name as any}
+            name={data?.name }
             temprature={data?.weather?.main?.temp}
             feels_like={data?.weather?.main?.feels_like}
             placesToVisit={data?.places || []}
